@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bliss Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <h1>Bliss Admin</h1>
+            <a href="/">View Site</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main class="admin-panel">
+
+        <section>
+            <h2>Add Category</h2>
+
+            <form action="/api/categories" method="POST">
+                <input type="text" name="name_en" placeholder="Category name English" required>
+                <input type="text" name="name_mk" placeholder="Category name Macedonian" required>
+                <button type="submit">Add Category</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Add Item</h2>
+
+            <form action="/api/items" method="POST">
+                <select name="category_id" required>
+                    {% for category in data.categories %}
+                    <option value="{{ category.id }}">
+                        {{ category.name_en }} / {{ category.name_mk }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                <input type="text" name="name_en" placeholder="Item name English" required>
+                <input type="text" name="name_mk" placeholder="Item name Macedonian" required>
+
+                <input type="text" name="description_en" placeholder="Description English">
+                <input type="text" name="description_mk" placeholder="Description Macedonian">
+
+                <input type="text" name="price" placeholder="Price">
+
+                <label>
+                    <input type="checkbox" name="featured">
+                    Featured item
+                </label>
+
+                <button type="submit">Add Item</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Current Menu</h2>
+
+            {% for category in data.categories %}
+            <div class="admin-category">
+                <h3>{{ category.name_en }} / {{ category.name_mk }}</h3>
+
+                <form action="/api/categories/{{ category.id }}" method="POST">
+                    <small>
+                        Delete/edit buttons will be improved by frontend developer.
+                    </small>
+                </form>
+
+                {% for item in category.items %}
+                <div class="admin-item">
+                    <strong>{{ item.name_en }} / {{ item.name_mk }}</strong>
+                    <p>{{ item.price }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </section>
+
+    </main>
+
+</body>
+
+</html>
