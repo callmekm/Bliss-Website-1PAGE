@@ -211,7 +211,7 @@ def add_category():
 @api_login_required
 def update_category(category_id):
     data = load_data()
-    body = request.json or request.form
+    body = request.get_json(silent=True) or request.form
 
     for category in data["categories"]:
         if category["id"] == category_id:
@@ -247,7 +247,7 @@ def delete_category(category_id):
 @api_login_required
 def add_item():
     data = load_data()
-    body = request.json or request.form
+    body = request.get_json(silent=True) or request.form
 
     category_id = body.get("category_id")
     name_en = body.get("name_en")
@@ -295,7 +295,7 @@ def add_item():
 @api_login_required
 def update_item(item_id):
     data = load_data()
-    body = request.json or request.form
+    body = request.get_json(silent=True) or request.form
 
     for category in data["categories"]:
         for item in category.get("items", []):

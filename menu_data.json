@@ -14,6 +14,16 @@
                     "price": "90 ден",
                     "image": "",
                     "featured": true
+                },
+                {
+                    "id": "irish_coffee_4d23b8f9",
+                    "name_en": "Irish Coffee",
+                    "name_mk": "Ирско Кафе",
+                    "description_en": "Irish coffee from the shores of ireland",
+                    "description_mk": "Ирско кафе од морињата на ирска",
+                    "price": "100",
+                    "image": "",
+                    "featured": false
                 }
             ]
         },
