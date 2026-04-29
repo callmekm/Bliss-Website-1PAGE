@@ -286,9 +286,14 @@ def add_item():
         if category["id"] == category_id:
             category["items"].append(new_item)
             save_data(data)
-            return jsonify({"message": "Item added.", "item": new_item}), 201
 
-    return jsonify({"error": "Category not found."}), 404
+            if request.is_json:
+                return jsonify({"message": "Item added.", "item": new_item}), 201
+            return redirect(url_for("admin"))
+
+    if request.is_json:
+        return jsonify({"error": "Category not found."}), 404
+    return redirect(url_for("admin"))
 
 
 @app.route("/api/items/<item_id>", methods=["PUT"])

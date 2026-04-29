@@ -24,6 +24,26 @@
                     "price": "100",
                     "image": "",
                     "featured": false
+                },
+                {
+                    "id": "irish_coffee_2973bb65",
+                    "name_en": "Irish Coffee",
+                    "name_mk": "Ирско Кафе",
+                    "description_en": "Irish coffee from the shores of ireland",
+                    "description_mk": "Ирско кафе од морињата на ирска",
+                    "price": "100",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "irish_coffee_cee661c5",
+                    "name_en": "Irish Coffee",
+                    "name_mk": "Ирско Кафе",
+                    "description_en": "Irish coffee from the shores of ireland",
+                    "description_mk": "Ирско кафе од морињата на ирска",
+                    "price": "100",
+                    "image": "",
+                    "featured": false
                 }
             ]
         },
