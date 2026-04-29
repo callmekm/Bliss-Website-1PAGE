@@ -112,7 +112,7 @@ def logout():
 
 
 @app.route("/admin")
-@login_required
+@api_login_required
 def admin():
     data = load_data()
     return render_template("admin.html", data=data)
