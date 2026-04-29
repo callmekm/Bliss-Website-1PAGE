@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.hamburger {
+    display: none;
+}
+
+.hero {
+    min-height: 80vh;
+    padding: 80px 20px;
+    text-align: center;
+    background: #222;
+}
+
+.button,
+button {
+    padding: 12px 20px;
+    border: none;
+    background: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.featured,
+.menu,
+.admin-panel,
+.admin-login {
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.featured-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+}
+
+.featured-card,
+.menu-item,
+.admin-category,
+.admin-item {
+    background: #222;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.category-toggle {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.category-items {
+    display: none;
+}
+
+.category-items.open {
+    display: block;
+}
+
+form {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+input,
+select {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+}
+
+.error {
+    color: red;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #000;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        min-height: 70vh;
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "categories": [
+        {
+            "id": "coffee",
+            "name_en": "Coffee",
+            "name_mk": "Кафе",
+            "items": [
+                {
+                    "id": "espresso",
+                    "name_en": "Espresso",
+                    "name_mk": "Еспресо",
+                    "description_en": "Classic short espresso.",
+                    "description_mk": "Класично кратко еспресо.",
+                    "price": "90 ден",
+                    "image": "",
+                    "featured": true
+                }
+            ]
+        },
+        {
+            "id": "cocktails",
+            "name_en": "Cocktails",
+            "name_mk": "Коктели",
+            "items": [
+                {
+                    "id": "mojito",
+                    "name_en": "Mojito",
+                    "name_mk": "Мохито",
+                    "description_en": "Fresh mint cocktail.",
+                    "description_mk": "Свеж коктел со нане.",
+                    "price": "250 ден",
+                    "image": "",
+                    "featured": true
+                }
+            ]
+        }
+    ]
+}
