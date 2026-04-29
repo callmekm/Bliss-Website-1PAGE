@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for, session, jsonify
 from functools import wraps
+from werkzeug.utils import secure_filename
 import json
 import os
 import uuid
@@ -8,6 +9,19 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "temporary_secret_key_change_later")
 
 DATA_FILE = "menu_data.json"
+UPLOAD_FOLDER = os.path.join("static", "uploads")
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
+
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Helper function to check allowed file extensions
+
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "bliss123")
@@ -184,15 +198,19 @@ def api_menu():
 @api_login_required
 def add_category():
     data = load_data()
+    body = request.get_json(silent=True) or request.form
 
-    name_en = request.form.get("name_en") or request.json.get("name_en")
-    name_mk = request.form.get("name_mk") or request.json.get("name_mk")
+    name_en = body.get("name_en")
+    name_mk = body.get("name_mk")
 
     if not name_en or not name_mk:
-        return (
-            jsonify({"error": "English and Macedonian category names are required."}),
-            400,
-        )
+        if request.is_json:
+            return (
+                jsonify({"error": "English name and Macedonian name are required."}),
+                400,
+            )
+
+        return redirect(url_for("admin"))
 
     new_category = {
         "id": generate_id(name_en),
@@ -204,23 +222,10 @@ def add_category():
     data["categories"].append(new_category)
     save_data(data)
 
-    return jsonify({"message": "Category added.", "category": new_category}), 201
+    if request.is_json:
+        return jsonify({"message": "Category added.", "category": new_category}), 201
 
-
-@app.route("/api/categories/<category_id>", methods=["PUT"])
-@api_login_required
-def update_category(category_id):
-    data = load_data()
-    body = request.get_json(silent=True) or request.form
-
-    for category in data["categories"]:
-        if category["id"] == category_id:
-            category["name_en"] = body.get("name_en", category["name_en"])
-            category["name_mk"] = body.get("name_mk", category["name_mk"])
-            save_data(data)
-            return jsonify({"message": "Category updated.", "category": category})
-
-    return jsonify({"error": "Category not found."}), 404
+    return redirect(url_for("admin"))
 
 
 @app.route("/api/categories/<category_id>", methods=["DELETE"])
@@ -258,18 +263,37 @@ def add_item():
     image = body.get("image", "")
     featured = body.get("featured", False)
 
-    if featured in ["true", "True", "on", "1"]:
+    image_file = request.files.get("image_file")
+
+    if image_file and image_file.filename != "":
+        if allowed_file(image_file.filename):
+            safe_filename = secure_filename(image_file.filename)
+            unique_filename = f"{uuid.uuid4().hex}_{safe_filename}"
+
+            image_path = os.path.join(app.config["UPLOAD_FOLDER"], unique_filename)
+            image_file.save(image_path)
+
+            image = f"uploads/{unique_filename}"
+        else:
+            return "Invalid image type. Use PNG, JPG, JPEG, WEBP, or GIF.", 400
+
+    if featured in ["true", "True", "on", "1", True]:
         featured = True
     else:
         featured = False
 
     if not category_id or not name_en or not name_mk:
-        return (
-            jsonify(
-                {"error": "Category, English name and Macedonian name are required."}
-            ),
-            400,
-        )
+        if request.is_json:
+            return (
+                jsonify(
+                    {
+                        "error": "Category, English name and Macedonian name are required."
+                    }
+                ),
+                400,
+            )
+
+        return redirect(url_for("admin"))
 
     new_item = {
         "id": generate_id(name_en),
@@ -289,10 +313,12 @@ def add_item():
 
             if request.is_json:
                 return jsonify({"message": "Item added.", "item": new_item}), 201
+
             return redirect(url_for("admin"))
 
     if request.is_json:
         return jsonify({"error": "Category not found."}), 404
+
     return redirect(url_for("admin"))
 
 

@@ -44,6 +44,16 @@
                     "price": "100",
                     "image": "",
                     "featured": false
+                },
+                {
+                    "id": "irish_coffee_bd5cf49e",
+                    "name_en": "Irish Coffee",
+                    "name_mk": "Ирско Кафе",
+                    "description_en": "Irish coffee from the shores of ireland",
+                    "description_mk": "Ирско кафе од морињата на ирска",
+                    "price": "100",
+                    "image": "uploads/ac0f7d39598e4abf9f969846aca19d20_1.2.jpg",
+                    "featured": true
                 }
             ]
         },
@@ -63,6 +73,24 @@
                     "featured": true
                 }
             ]
+        },
+        {
+            "id": "filip_krste_category_fc7a818d",
+            "name_en": "Filip Krste Category",
+            "name_mk": "Филип Крсте Категорија",
+            "items": []
+        },
+        {
+            "id": "filip_krste_category_f8dc34c2",
+            "name_en": "Filip Krste Category",
+            "name_mk": "Филип Крсте Категорија",
+            "items": []
+        },
+        {
+            "id": "filip_krste_category_0fbd5d7b",
+            "name_en": "Filip Krste Category",
+            "name_mk": "Филип Крсте Категорија",
+            "items": []
         }
     ]
 }

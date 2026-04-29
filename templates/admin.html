@@ -32,7 +32,7 @@
         <section>
             <h2>Add Item</h2>
 
-            <form action="/api/items" method="POST">
+            <form action="/api/items" method="POST" enctype="multipart/form-data">
                 <select name="category_id" required>
                     {% for category in data.categories %}
                     <option value="{{ category.id }}">
@@ -48,6 +48,9 @@
                 <input type="text" name="description_mk" placeholder="Description Macedonian">
 
                 <input type="text" name="price" placeholder="Price">
+
+                <label> Item Photo</label>
+                <input type="file" name="image_file" accept="image/*">
 
                 <label>
                     <input type="checkbox" name="featured">
