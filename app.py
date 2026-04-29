@@ -62,6 +62,38 @@ def api_login_required(func):
 # Landing Page
 
 
+def get_language():
+    lang = request.args.get("lang", "en")
+    if lang not in ["en", "mk"]:
+        lang = "en"
+    return lang
+
+
+def translate_item(item, lang):
+    return {
+        "id": item["id"],
+        "name": item.get(f"name_{lang}", item.get("name_en", "")),
+        "name_en": item.get("name_en", ""),
+        "name_mk": item.get("name_mk", ""),
+        "description": item.get(f"description_{lang}", item.get("description_en", "")),
+        "description_en": item.get("description_en", ""),
+        "description_mk": item.get("description_mk", ""),
+        "price": item.get("price", ""),
+        "image": item.get("image", ""),
+        "featured": item.get("featured", False),
+    }
+
+
+def translate_category(category, lang):
+    return {
+        "id": category["id"],
+        "name": category.get(f"name_{lang}", category.get("name_en", "")),
+        "name_en": category.get("name_en", ""),
+        "name_mk": category.get("name_mk", ""),
+        "items": [translate_item(item, lang) for item in category.get("items", [])],
+    }
+
+
 @app.route("/")
 def home():
     lang = get_language()
