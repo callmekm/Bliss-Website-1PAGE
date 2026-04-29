@@ -9,8 +9,8 @@ app.secret_key = os.environ.get("SECRET_KEY", "temporary_secret_key_change_later
 
 DATA_FILE = "menu_data.json"
 
-admin_username = os.environ.get("ADMIN_USERNAME", "admin")
-admin_password = os.environ.get("ADMIN_PASSWORD", "bliss123")
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "bliss123")
 
 # Helper functions
 
