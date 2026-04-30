@@ -7,13 +7,25 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <body>
 
     <header>
         <nav class="navbar">
-            <h1>Bliss</h1>
+            <a href="/" class="logo">
+    <img src="{{ url_for('static', filename='images/bliss-logo (BLISS).png') }}" alt="Bliss Logo">
 
-            <button class="hamburger">☰</button>
+    <img class="logo-sub"
+         src="{{ url_for('static', filename='images/bliss-logo (LOUNGE BAR).png') }}"
+         alt="Lounge Bar">
+</a>
+
+            <button class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
 
             <div class="nav-links">
                 <a href="/">Home</a>

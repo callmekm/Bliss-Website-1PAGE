@@ -47,7 +47,7 @@
                 <input type="text" name="description_en" placeholder="Description English">
                 <input type="text" name="description_mk" placeholder="Description Macedonian">
 
-                <input type="text" name="price" placeholder="Price">
+                <input type="text" name="price" placeholder="Price in MKD (ДЕН)">
 
                 <label> Item Photo</label>
                 <input type="file" name="image_file" accept="image/*">
@@ -66,26 +66,49 @@
 
             {% for category in data.categories %}
             <div class="admin-category">
-                <h3>{{ category.name_en }} / {{ category.name_mk }}</h3>
-
-                <form action="/api/categories/{{ category.id }}" method="POST">
-                    <small>
-                        Delete/edit buttons will be improved by frontend developer.
-                    </small>
-                </form>
-
-                {% for item in category["items"] %}
-                <div class="admin-item">
-                    <strong>{{ item.name_en }} / {{ item.name_mk }}</strong>
-                    <p>{{ item.price }}</p>
+                <div class="admin-category-header">
+                    <h3>{{ category.name_en }} / {{ category.name_mk }}</h3>
+                    <div class="admin-category-actions">
+                        <button type="button" class="small secondary delete-category" data-category-id="{{ category.id }}">
+                            Delete
+                        </button>
+                    </div>
                 </div>
-                {% endfor %}
+
+                <div class="admin-category-items">
+                    {% for item in category["items"] %}
+                    <div class="admin-item">
+                        <div class="admin-item-main">
+                            {% if item.image %}
+                            <img
+                                class="admin-item-image"
+                                src="{{ url_for('static', filename=item.image) }}"
+                                alt="{{ item.name_en }} image"
+                            >
+                            {% endif %}
+                            <div>
+                                <strong>{{ item.name_en }} / {{ item.name_mk }}</strong>
+                                <p>{{ item.price }}</p>
+                            </div>
+                        </div>
+                        <div class="admin-item-actions">
+                            <button type="button" class="small edit-item" data-item-id="{{ item.id }}">
+                                Edit
+                            </button>
+                            <button type="button" class="small danger delete-item" data-item-id="{{ item.id }}">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             {% endfor %}
         </section>
 
     </main>
 
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>

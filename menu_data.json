@@ -6,46 +6,6 @@
             "name_mk": "Кафе",
             "items": [
                 {
-                    "id": "espresso",
-                    "name_en": "Espresso",
-                    "name_mk": "Еспресо",
-                    "description_en": "Classic short espresso.",
-                    "description_mk": "Класично кратко еспресо.",
-                    "price": "90 ден",
-                    "image": "",
-                    "featured": true
-                },
-                {
-                    "id": "irish_coffee_4d23b8f9",
-                    "name_en": "Irish Coffee",
-                    "name_mk": "Ирско Кафе",
-                    "description_en": "Irish coffee from the shores of ireland",
-                    "description_mk": "Ирско кафе од морињата на ирска",
-                    "price": "100",
-                    "image": "",
-                    "featured": false
-                },
-                {
-                    "id": "irish_coffee_2973bb65",
-                    "name_en": "Irish Coffee",
-                    "name_mk": "Ирско Кафе",
-                    "description_en": "Irish coffee from the shores of ireland",
-                    "description_mk": "Ирско кафе од морињата на ирска",
-                    "price": "100",
-                    "image": "",
-                    "featured": false
-                },
-                {
-                    "id": "irish_coffee_cee661c5",
-                    "name_en": "Irish Coffee",
-                    "name_mk": "Ирско Кафе",
-                    "description_en": "Irish coffee from the shores of ireland",
-                    "description_mk": "Ирско кафе од морињата на ирска",
-                    "price": "100",
-                    "image": "",
-                    "featured": false
-                },
-                {
                     "id": "irish_coffee_bd5cf49e",
                     "name_en": "Irish Coffee",
                     "name_mk": "Ирско Кафе",
@@ -73,33 +33,6 @@
                     "featured": true
                 }
             ]
-        },
-        {
-            "id": "filip_krste_category_fc7a818d",
-            "name_en": "Filip Krste Category",
-            "name_mk": "Филип Крсте Категорија",
-            "items": []
-        },
-        {
-            "id": "filip_krste_category_f8dc34c2",
-            "name_en": "Filip Krste Category",
-            "name_mk": "Филип Крсте Категорија",
-            "items": []
-        },
-        {
-            "id": "filip_krste_category_0fbd5d7b",
-            "name_en": "Filip Krste Category",
-            "name_mk": "Филип Крсте Категорија",
-            "id": "sdada_f9af6994",
-            "name_en": "sdada",
-            "name_mk": "asdasd",
-            "items": []
-        },
-        {
-            "id": "sadfghh_fbd10a80",
-            "name_en": "sadfghh",
-            "name_mk": "sfdgvhbn",
-            "items": []
         }
     ]
 }
