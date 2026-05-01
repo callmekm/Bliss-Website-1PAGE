@@ -2,6 +2,10 @@
     --accent-color: #d29b52;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -9,7 +13,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #111;
+    background: #0e0a08;
     color: white;
 }
 
@@ -140,7 +144,15 @@ a {
     padding: 80px 20px;
     padding-top: 120px !important;
     text-align: center;
-    background: #222;
+
+    background:
+        url("/static/images/file.svg"),
+        #0e0a08;
+
+    background-size: auto;
+    background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .button,
@@ -274,7 +286,8 @@ select {
 footer {
     text-align: center;
     padding: 30px;
-    background: #000;
+    background: #080605;
+    border-top: 1px solid var(--accent-color);
 }
 
 @media (min-width: 769px) {
@@ -402,5 +415,10 @@ footer {
     .nav-links a {
         font-weight: 600;
     }
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
 }
 
