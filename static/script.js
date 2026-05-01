@@ -58,13 +58,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 🔥 HAMBURGER MENU (THIS IS THE ONLY NEW PART)
+    // 🔥 HAMBURGER MENU (your existing logic)
     const hamburger = document.querySelector(".hamburger");
-    const navLinks = document.querySelector(".nav-links");
+    const navbar = document.querySelector(".navbar");
 
-    if (hamburger && navLinks) {
+    if (hamburger && navbar) {
         hamburger.addEventListener("click", function () {
-            navLinks.classList.toggle("open");
+            navbar.classList.toggle("open");
         });
     }
+
+    // ✅ NEW: ACTIVE NAV LINK
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            navLinks.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
+        });
+    });
+
 });

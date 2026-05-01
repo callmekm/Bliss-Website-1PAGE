@@ -25,17 +25,22 @@ a {
     width: 100%;
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* KEY CHANGE */
 
-    padding: 15px 20px;
-
-    background: rgba(0, 0, 0, 0.4); /* transparent */
-    backdrop-filter: blur(12px); /* blur glass effect */
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
 
     border-bottom: 1px solid var(--accent-color);
 
+    height: 70px; /* closed */
+    overflow: hidden;
+    transition: height 0.4s ease;
+
     z-index: 1000;
+}
+
+.navbar.open {
+    height: 50vh;
 }
 
 .navbar h1 {
@@ -45,10 +50,19 @@ a {
 
 .nav-links {
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-
+.navbar.open .nav-links {
+    opacity: 1;
+}
 
 .hamburger {
     display: none;
@@ -72,14 +86,42 @@ a {
 
 .nav-links a {
     font-size: 14px;
-    opacity: 0.8;
+    color: var(--accent-color);
+    opacity: 0.9;
+    transition: 0.3s;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: var(--accent-color);
     transition: 0.3s;
 }
 
 .nav-links a:hover {
     opacity: 1;
-    color: var(--accent-color);
     transform: translateX(4px);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 20px;
 }
 
 .logo img {
@@ -251,32 +293,19 @@ footer {
     }
 
     .nav-links {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50vh;
-
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     gap: 20px;
 
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(14px);
+    width: 100%;
+    height: 100%;
 
-    border-bottom: 2px solid var(--accent-color);
-
-    transform: translateY(-100%);
-    transition: transform 0.4s ease;
-
-    z-index: 999;
-}
-
-    .nav-links.open {
-    transform: translateY(0);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding-top: 20px;
 }
 
 .nav-links a {
