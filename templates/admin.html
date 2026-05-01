@@ -11,7 +11,15 @@
 
     <header>
         <nav class="navbar">
-            <h1>Bliss Admin</h1>
+            <a href="/" class="logo">
+        <img src="{{ url_for('static', filename='images/bliss-logo (BLISS).png') }}" alt="Bliss Logo">
+
+        <img class="logo-sub"
+             src="{{ url_for('static', filename='images/bliss-logo (LOUNGE BAR).png') }}"
+             alt="Lounge Bar">
+    </a>
+
+            <h1>Admin Panel</h1>
             <a href="/">View Site</a>
             <a href="/logout">Logout</a>
         </nav>

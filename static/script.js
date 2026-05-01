@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const langBtn = document.querySelector(".nav-top .lang-btn");
+
+if (langBtn) {
+    langBtn.addEventListener("click", function () {
+        this.classList.add("active");
+    });
+}
+
     const categoryButtons = document.querySelectorAll(".category-toggle");
 
     categoryButtons.forEach(function (button) {
@@ -58,24 +66,50 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 🔥 HAMBURGER MENU (your existing logic)
-    const hamburger = document.querySelector(".hamburger");
-    const navbar = document.querySelector(".navbar");
+    // 🔥 HAMBURGER MENU
+const hamburger = document.querySelector(".hamburger");
+const navbar = document.querySelector(".navbar");
+const navLinks = document.querySelectorAll(".nav-links a");
 
-    if (hamburger && navbar) {
-        hamburger.addEventListener("click", function () {
-            navbar.classList.toggle("open");
-        });
-    }
+// RESET STATE ON LOAD
+if (navbar) navbar.classList.remove("open");
+if (hamburger) hamburger.classList.remove("open");
+navLinks.forEach(l => l.classList.remove("active"));
 
-    // ✅ NEW: ACTIVE NAV LINK
-    const navLinks = document.querySelectorAll(".nav-links a");
-
-    navLinks.forEach(link => {
-        link.addEventListener("click", function () {
-            navLinks.forEach(l => l.classList.remove("active"));
-            this.classList.add("active");
-        });
+// TOGGLE MENU
+if (hamburger && navbar) {
+    hamburger.addEventListener("click", function () {
+        navbar.classList.toggle("open");
+        hamburger.classList.toggle("open");
     });
+}
+
+// NAV LINK CLICK LOGIC
+navLinks.forEach(link => {
+    link.addEventListener("click", function () {
+        const href = this.getAttribute("href");
+
+        // remove underline instantly (no animation flash)
+        navLinks.forEach(l => {
+            l.classList.add("no-anim");
+            l.classList.remove("active");
+        });
+
+        // force reflow so transition reset applies immediately
+        void document.body.offsetWidth;
+
+        navLinks.forEach(l => l.classList.remove("no-anim"));
+
+        // CLOSE MOBILE MENU
+        if (navbar.classList.contains("open")) {
+            navbar.classList.remove("open");
+            hamburger.classList.remove("open");
+        }
+
+        // only keep active for real pages (optional — you can remove this entirely)
+        if (!href.startsWith("#")) {
+        }
+    });
+});
 
 });
