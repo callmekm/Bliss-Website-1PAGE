@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Bliss Admin Panel</title>
@@ -9,114 +8,191 @@
 
 <body>
 
-    <header>
-        <nav class="navbar">
-            <a href="/" class="logo">
-        <img src="{{ url_for('static', filename='images/bliss-logo (BLISS).png') }}" alt="Bliss Logo">
+<header>
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <img src="{{ url_for('static', filename='images/bliss-logo (BLISS).png') }}">
+            <img class="logo-sub" src="{{ url_for('static', filename='images/bliss-logo (LOUNGE BAR).png') }}">
+        </a>
 
-        <img class="logo-sub"
-             src="{{ url_for('static', filename='images/bliss-logo (LOUNGE BAR).png') }}"
-             alt="Lounge Bar">
-    </a>
+        <h1>Admin Panel</h1>
 
-            <h1>Admin Panel</h1>
+        <div>
             <a href="/">View Site</a>
             <a href="/logout">Logout</a>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
-    <main class="admin-panel">
+<main class="admin-panel">
 
-        <section>
-            <h2>Add Category</h2>
+<!-- ================= CATEGORY ================= -->
 
-            <form action="/api/categories" method="POST">
-                <input type="text" name="name_en" placeholder="Category name English" required>
-                <input type="text" name="name_mk" placeholder="Category name Macedonian" required>
-                <button type="submit">Add Category</button>
-            </form>
-        </section>
+<section>
+    <h2>Add Category</h2>
 
-        <section>
-            <h2>Add Item</h2>
+    <form action="/api/categories" method="POST">
+        <input type="text" name="name_en" placeholder="English name" required>
+        <input type="text" name="name_mk" placeholder="Macedonian name" required>
+        <button type="submit">Add Category</button>
+    </form>
+</section>
 
-            <form action="/api/items" method="POST" enctype="multipart/form-data">
-                <select name="category_id" required>
-                    {% for category in data.categories %}
-                    <option value="{{ category.id }}">
-                        {{ category.name_en }} / {{ category.name_mk }}
-                    </option>
-                    {% endfor %}
-                </select>
+<!-- ================= SUBCATEGORY ================= -->
 
-                <input type="text" name="name_en" placeholder="Item name English" required>
-                <input type="text" name="name_mk" placeholder="Item name Macedonian" required>
+<section>
+    <h2>Add Subcategory</h2>
 
-                <input type="text" name="description_en" placeholder="Description English">
-                <input type="text" name="description_mk" placeholder="Description Macedonian">
+    <form action="/api/subcategories" method="POST">
+        <select name="category_id" required>
+            {% for category in data.categories %}
+            <option value="{{ category.id }}">
+                {{ category.name_en }}
+            </option>
+            {% endfor %}
+        </select>
 
-                <input type="text" name="price" placeholder="Price in MKD (ДЕН)">
+        <input type="text" name="name_en" placeholder="English name" required>
+        <input type="text" name="name_mk" placeholder="Macedonian name" required>
 
-                <label> Item Photo</label>
-                <input type="file" name="image_file" accept="image/*">
+        <button type="submit">Add Subcategory</button>
+    </form>
+</section>
 
-                <label>
-                    <input type="checkbox" name="featured">
-                    Featured item
-                </label>
+<!-- ================= ITEM ================= -->
 
-                <button type="submit">Add Item</button>
-            </form>
-        </section>
+<section>
+    <h2>Add Item</h2>
 
-        <section>
-            <h2>Current Menu</h2>
+    <form action="/api/items" method="POST" enctype="multipart/form-data">
+
+        <!-- SMART TARGET SELECT -->
+        <select name="target_id" required>
+            <option value="">Select where to add</option>
 
             {% for category in data.categories %}
-            <div class="admin-category">
-                <div class="admin-category-header">
-                    <h3>{{ category.name_en }} / {{ category.name_mk }}</h3>
-                    <div class="admin-category-actions">
-                        <button type="button" class="small secondary delete-category" data-category-id="{{ category.id }}">
-                            Delete
-                        </button>
+                <option value="category|{{ category.id }}">
+                    {{ category.name_en }}
+                </option>
+
+                {% for sub in category["subcategories"] %}
+                <option value="subcategory|{{ sub.id }}">
+                    → {{ sub.name_en }}
+                </option>
+                {% endfor %}
+            {% endfor %}
+        </select>
+
+        <input type="text" name="name_en" placeholder="Item name EN" required>
+        <input type="text" name="name_mk" placeholder="Item name MK" required>
+
+        <input type="text" name="description_en" placeholder="Description EN">
+        <input type="text" name="description_mk" placeholder="Description MK">
+
+        <input type="text" name="price" placeholder="Price">
+
+        <input type="file" name="image_file" accept="image/*">
+
+        <label>
+            <input type="checkbox" name="featured">
+            Featured
+        </label>
+
+        <button type="submit">Add Item</button>
+    </form>
+</section>
+
+<!-- ================= MENU ================= -->
+
+<section>
+    <h2>Current Menu</h2>
+
+    {% for category in data.categories %}
+    <div class="admin-category">
+
+        <div class="admin-category-header">
+            <h3>{{ category.name_en }} / {{ category.name_mk }}</h3>
+
+            <button class="small danger delete-category"
+                    data-category-id="{{ category.id }}">
+                Delete
+            </button>
+        </div>
+
+        <div class="admin-category-items">
+
+            <!-- CATEGORY ITEMS -->
+            {% for item in category["items"] %}
+            <div class="admin-item">
+                <div class="admin-item-main">
+
+                    {% if item.image %}
+                    <img class="admin-item-image"
+                         src="{{ url_for('static', filename=item.image) }}">
+                    {% endif %}
+
+                    <div>
+                        <strong>{{ item.name_en }}</strong>
+                        <p>{{ item.price }}</p>
                     </div>
                 </div>
 
-                <div class="admin-category-items">
-                    {% for item in category["items"] %}
-                    <div class="admin-item">
-                        <div class="admin-item-main">
-                            {% if item.image %}
-                            <img
-                                class="admin-item-image"
-                                src="{{ url_for('static', filename=item.image) }}"
-                                alt="{{ item.name_en }} image"
-                            >
-                            {% endif %}
-                            <div>
-                                <strong>{{ item.name_en }} / {{ item.name_mk }}</strong>
-                                <p>{{ item.price }}</p>
-                            </div>
-                        </div>
-                        <div class="admin-item-actions">
-                            <button type="button" class="small edit-item" data-item-id="{{ item.id }}">
-                                Edit
-                            </button>
-                            <button type="button" class="small danger delete-item" data-item-id="{{ item.id }}">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                    {% endfor %}
+                <div>
+                    <button class="small edit-item" data-item-id="{{ item.id }}">Edit</button>
+                    <button class="small danger delete-item" data-item-id="{{ item.id }}">Delete</button>
                 </div>
             </div>
             {% endfor %}
-        </section>
 
-    </main>
+            <!-- SUBCATEGORIES -->
+            {% for sub in category["subcategories"] %}
+            <div class="admin-subcategory">
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+                <div style="display:flex; justify-content:space-between;">
+                    <h4>{{ sub.name_en }}</h4>
+
+                    <button class="small danger delete-subcategory"
+                            data-subcategory-id="{{ sub.id }}">
+                        Delete
+                    </button>
+                </div>
+
+                {% for item in sub["items"] %}
+                <div class="admin-item">
+
+                    <div class="admin-item-main">
+
+                        {% if item.image %}
+                        <img class="admin-item-image"
+                             src="{{ url_for('static', filename=item.image) }}">
+                        {% endif %}
+
+                        <div>
+                            <strong>{{ item.name_en }}</strong>
+                            <p>{{ item.price }}</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="small edit-item" data-item-id="{{ item.id }}">Edit</button>
+                        <button class="small danger delete-item" data-item-id="{{ item.id }}">Delete</button>
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    {% endfor %}
+
+</section>
+
+</main>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
-
 </html>

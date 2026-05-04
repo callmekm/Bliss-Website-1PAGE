@@ -109,22 +109,51 @@
         </h2>
 
         {% for category in categories %}
-        <div class="menu-category">
-            <button class="category-toggle">
-                {{ category.name }}
-            </button>
+<div class="menu-category">
 
-            <div class="category-items">
-                {% for item in category["items"] %}
-                <div class="menu-item">
-                    <h3>{{ item.name }}</h3>
-                    <p>{{ item.description }}</p>
-                    <strong>{{ item.price }}</strong>
-                </div>
-                {% endfor %}
-            </div>
+    <button class="category-toggle">
+        {{ category.name }}
+    </button>
+
+    <div class="category-items">
+
+        <!-- 🔹 ITEMS DIRECTLY IN CATEGORY -->
+       {% for item in category["items"] %}
+        <div class="menu-item">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.description }}</p>
+            <strong>{{ item.price }}</strong>
+
+            {% if item.image %}
+            <img src="{{ url_for('static', filename=item.image) }}" style="width:100px;">
+            {% endif %}
         </div>
         {% endfor %}
+
+        <!-- 🔹 SUBCATEGORIES -->
+        {% for sub in category["subcategories"] %}
+        <div class="menu-subcategory">
+
+            <h4>{{ sub.name }}</h4>
+
+            {% for item in sub["items"] %}
+            <div class="menu-item">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.description }}</p>
+                <strong>{{ item.price }}</strong>
+
+                {% if item.image %}
+                <img src="{{ url_for('static', filename=item.image) }}" style="width:100px;">
+                {% endif %}
+            </div>
+            {% endfor %}
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endfor %}
     </section>
 
     <footer>

@@ -1,1 +1,2 @@
-Napraj scroll efect kake stisnas menu home ne samo da ripa od home na menu ..
+Napraj frontendo za da ima edit kopce na subcategorrii i napraj da se otvarat unatre u kategorriite subkategoorite u meni pago isto taka u admino napraj drag and drop za da se podmestuvat podreduvat raboti isto napraj save changes popup na admino
+

@@ -112,4 +112,29 @@ navLinks.forEach(link => {
     });
 });
 
+// DELETE SUBCATEGORY
+document.querySelectorAll(".delete-subcategory").forEach(button => {
+    button.addEventListener("click", async () => {
+        const id = button.dataset.subcategoryId;
+
+        if (!confirm("Delete this subcategory?")) return;
+
+        const res = await fetch(`/api/subcategories/${id}`, {
+            method: "DELETE"
+        });
+
+        if (res.ok) location.reload();
+    });
+});
+
+// SUBCATEGORY TOGGLE
+const subcategoryHeaders = document.querySelectorAll(".menu-subcategory h4");
+
+subcategoryHeaders.forEach(header => {
+    header.addEventListener("click", function () {
+        const parent = this.parentElement;
+        parent.classList.toggle("open");
+    });
+});
+
 });

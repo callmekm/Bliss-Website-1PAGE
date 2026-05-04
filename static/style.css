@@ -254,8 +254,25 @@ button {
 
 .category-toggle {
     width: 100%;
-    margin-bottom: 10px;
+    background: #080605;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+
+    padding: 14px;
+    border-radius: 12px;
     font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.category-toggle:hover {
+    background: #120e0c;
+}
+
+.menu-category {
+    margin-bottom: 20px;
 }
 
 .category-items {
@@ -263,6 +280,33 @@ button {
 }
 
 .category-items.open {
+    display: block;
+}
+
+.menu-subcategory {
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.menu-subcategory h4 {
+    background: #080605;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    margin-bottom: 8px;
+}
+
+/* HIDE ITEMS INSIDE SUBCATEGORY */
+.menu-subcategory .menu-item {
+    display: none;
+}
+
+/* SHOW WHEN OPEN */
+.menu-subcategory.open .menu-item {
     display: block;
 }
 
