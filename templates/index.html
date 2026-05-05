@@ -3,161 +3,338 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Bliss Lounge Bar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bliss Lounge Bar — {% if lang == "en" %}Coffee • Food • Drinks{% else %}Кафе • Храна • Пијалоци{% endif %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body class="public-site">
 
-<body>
+    <div class="site-bg-decoration" aria-hidden="true"></div>
 
     <header>
-        <nav class="navbar">
-    
-    <div class="nav-top">
-    <a href="/" class="logo">
-        <img src="{{ url_for('static', filename='images/bliss-logo (BLISS).png') }}" alt="Bliss Logo">
+        <nav class="site-navbar">
+            <div class="nav-container">
+                <a href="/" class="nav-logo" aria-label="Bliss Lounge Bar">
+                    <span class="logo-mark">
+                        <img src="{{ url_for('static', filename='images/bliss-logo (BLISS).png') }}" alt="Bliss">
+                        <img class="logo-mark-sub"
+                             src="{{ url_for('static', filename='images/bliss-logo (LOUNGE BAR).png') }}"
+                             alt="Lounge bar">
+                    </span>
+                </a>
 
-        <img class="logo-sub"
-             src="{{ url_for('static', filename='images/bliss-logo (LOUNGE BAR).png') }}"
-             alt="Lounge Bar">
-    </a>
+                <ul class="site-nav-menu">
+                    <li><a href="#home" class="site-nav-link">{% if lang == "en" %}Home{% else %}Дома{% endif %}</a></li>
+                    <li><a href="#menu" class="site-nav-link">{% if lang == "en" %}Menu{% else %}Мени{% endif %}</a></li>
+                    <li><a href="#about" class="site-nav-link">{% if lang == "en" %}About{% else %}За нас{% endif %}</a></li>
+                    <li><a href="/admin" class="site-nav-link site-nav-link--muted">{% if lang == "en" %}Login{% else %}Најава{% endif %}</a></li>
+                    <li class="site-lang-desktop">
+                        {% if lang == "en" %}
+                        <a href="/?lang=mk" class="lang-pill"><span>EN</span><span class="lang-sep">|</span><span class="lang-inactive">МК</span></a>
+                        {% else %}
+                        <a href="/?lang=en" class="lang-pill"><span class="lang-inactive">EN</span><span class="lang-sep">|</span><span>МК</span></a>
+                        {% endif %}
+                    </li>
+                </ul>
 
-    <div class="nav-actions">
-        {% if lang == "en" %}
-        <a href="/?lang=mk" class="lang-btn">MK</a>
-        {% else %}
-        <a href="/?lang=en" class="lang-btn">EN</a>
-        {% endif %}
-
-        <button class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</div>
-
-    <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="#menu">Menu</a>
-    <a href="/admin">Login</a>
-
-    {% if lang == "en" %}
-    <a href="/?lang=mk" class="lang-btn">MK</a>
-    {% else %}
-    <a href="/?lang=en" class="lang-btn">EN</a>
-    {% endif %}
-</div>
-
-</nav>
+                <div class="nav-mobile-actions">
+                    {% if lang == "en" %}
+                    <a href="/?lang=mk" class="lang-pill lang-pill--mobile">МК</a>
+                    {% else %}
+                    <a href="/?lang=en" class="lang-pill lang-pill--mobile">EN</a>
+                    {% endif %}
+                    <button type="button" class="site-hamburger" aria-label="Menu" aria-expanded="false">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <section class="hero">
-        <h2>
-            {% if lang == "en" %}
-            Welcome to Bliss Lounge Bar
-            {% else %}
-            Добредојдовте во Bliss Lounge Bar
-            {% endif %}
-        </h2>
-
-        <p>
-            {% if lang == "en" %}
-            Food, coffee, drinks and good atmosphere.
-            {% else %}
-            Храна, кафе, пијалоци и добра атмосфера.
-            {% endif %}
-        </p>
-
-        <a href="#menu" class="button">
-            {% if lang == "en" %}
-            View Menu
-            {% else %}
-            Види Мени
-            {% endif %}
-        </a>
-    </section>
-
-    <section class="featured">
-        <h2>
-            {% if lang == "en" %}
-            Featured Items
-            {% else %}
-            Издвоени производи
-            {% endif %}
-        </h2>
-
-        <div class="featured-slider">
-            {% for item in featured_items %}
-            <div class="featured-card">
-                <h3>{{ item.name }}</h3>
-                <p>{{ item.description }}</p>
-                <strong>{{ item.price }}</strong>
+    <main>
+        <section id="home" class="site-hero">
+            <div class="site-hero-inner">
+                <p class="site-hero-kicker">{% if lang == "en" %}coffee • food • drinks{% else %}кафе • храна • пијалоци{% endif %}</p>
+                <h1 class="site-hero-title">
+                    {% if lang == "en" %}
+                    Welcome to Bliss Lounge Bar
+                    {% else %}
+                    Добредојдовте во Bliss Lounge Bar
+                    {% endif %}
+                </h1>
+                <p class="site-hero-lead">
+                    {% if lang == "en" %}
+                    Food, coffee, drinks and a warm place to unwind.
+                    {% else %}
+                    Храна, кафе, пијалоци и топла атмосфера за одмор.
+                    {% endif %}
+                </p>
+                <div class="site-hero-actions">
+                    <a href="#menu" class="btn btn-primary">{% if lang == "en" %}View menu{% else %}Види мени{% endif %}</a>
+                    <a href="#about" class="btn btn-secondary">{% if lang == "en" %}About us{% else %}За нас{% endif %}</a>
+                </div>
             </div>
-            {% endfor %}
-        </div>
-    </section>
+        </section>
 
-    <section id="menu" class="menu">
-        <h2>
-            {% if lang == "en" %}
-            Menu
-            {% else %}
-            Мени
-            {% endif %}
-        </h2>
+        {% if featured_items %}
+        <section class="site-section site-section--featured" aria-labelledby="featured-heading">
+            <div class="container">
+                <header class="section-header">
+                    <h2 id="featured-heading" class="section-title">
+                        {% if lang == "en" %}Featured{% else %}Издвоено{% endif %}
+                    </h2>
+                    <p class="section-subtitle">
+                        {% if lang == "en" %}Hand-picked favorites from our menu{% else %}Омилени предлози од нашето мени{% endif %}
+                    </p>
+                </header>
 
-        {% for category in categories %}
-<div class="menu-category">
-
-    <button class="category-toggle">
-        {{ category.name }}
-    </button>
-
-    <div class="category-items">
-
-        <!-- 🔹 ITEMS DIRECTLY IN CATEGORY -->
-       {% for item in category["items"] %}
-        <div class="menu-item">
-            <h3>{{ item.name }}</h3>
-            <p>{{ item.description }}</p>
-            <strong>{{ item.price }}</strong>
-
-            {% if item.image %}
-            <img src="{{ url_for('static', filename=item.image) }}" style="width:100px;">
-            {% endif %}
-        </div>
-        {% endfor %}
-
-        <!-- 🔹 SUBCATEGORIES -->
-        {% for sub in category["subcategories"] %}
-        <div class="menu-subcategory">
-
-            <h4>{{ sub.name }}</h4>
-
-            {% for item in sub["items"] %}
-            <div class="menu-item">
-                <h3>{{ item.name }}</h3>
-                <p>{{ item.description }}</p>
-                <strong>{{ item.price }}</strong>
-
-                {% if item.image %}
-                <img src="{{ url_for('static', filename=item.image) }}" style="width:100px;">
-                {% endif %}
+                <div class="featured-carousel" id="featured-carousel" data-slide-count="{{ featured_items|length }}">
+                    <div
+                        id="featured-carousel-viewport"
+                        class="featured-carousel-viewport"
+                        tabindex="0"
+                        role="region"
+                        aria-roledescription="carousel"
+                        aria-label="{% if lang == 'en' %}Featured menu items{% else %}Издвоени ставки од менито{% endif %}"
+                    >
+                        <div class="featured-carousel-track">
+                            {% for item in featured_items %}
+                            <div
+                                class="featured-slide"
+                                role="group"
+                                aria-roledescription="slide"
+                                aria-label="{% if lang == 'en' %}Slide {{ loop.index }} of {{ loop.length }}{% else %}Слајд {{ loop.index }} од {{ loop.length }}{% endif %}"
+                            >
+                                <article class="featured-card">
+                                    {% if item.image %}
+                                    <div class="featured-card-media">
+                                        <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}" loading="lazy">
+                                    </div>
+                                    {% endif %}
+                                    <div class="featured-card-body">
+                                        <h3 class="featured-card-title">{{ item.name }}</h3>
+                                        {% if item.description %}
+                                        <p class="featured-card-desc">{{ item.description }}</p>
+                                        {% endif %}
+                                        {% if item.price %}
+                                        <p class="featured-card-price">{{ item.price }}</p>
+                                        {% endif %}
+                                    </div>
+                                </article>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if featured_items|length > 1 %}
+                    <div class="featured-carousel-nav">
+                        <button
+                            type="button"
+                            class="featured-carousel-btn featured-carousel-btn--prev"
+                            aria-controls="featured-carousel-viewport"
+                            aria-label="{% if lang == 'en' %}Previous featured item{% else %}Претходна издвоена ставка{% endif %}"
+                        >
+                            <span class="featured-carousel-btn-icon" aria-hidden="true">‹</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="featured-carousel-btn featured-carousel-btn--next"
+                            aria-controls="featured-carousel-viewport"
+                            aria-label="{% if lang == 'en' %}Next featured item{% else %}Следна издвоена ставка{% endif %}"
+                        >
+                            <span class="featured-carousel-btn-icon" aria-hidden="true">›</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
-            {% endfor %}
+        </section>
+        {% endif %}
 
+        <section id="menu" class="site-section site-section--menu">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title">{% if lang == "en" %}Menu{% else %}Мени{% endif %}</h2>
+                    <p class="section-subtitle">
+                        {% if lang == "en" %}Open a category to browse items and prices{% else %}
+                        Отворете категорија за да ги видите артиклите и цените{% endif %}
+                    </p>
+                </header>
+
+                <div class="menu-grid">
+                    {% for category in categories %}
+                    <div class="menu-category">
+                        <button type="button" class="menu-category-header category-toggle" aria-expanded="false">
+                            <span class="menu-category-text">
+                                <span class="category-title">{{ category.name }}</span>
+                                <span class="category-subtitle">
+                                    {% if lang == "en" %}{{ category.name_mk }}{% else %}{{ category.name_en }}{% endif %}
+                                </span>
+                            </span>
+                            <span class="category-toggle-icon" aria-hidden="true"></span>
+                        </button>
+
+                        <div class="category-items menu-category-body">
+                            {% for item in category["items"] %}
+                            <div class="menu-row">
+                                <div class="menu-row-main">
+                                    {% if item.image %}
+                                    <span class="menu-row-thumb">
+                                        <img src="{{ url_for('static', filename=item.image) }}" alt="" loading="lazy">
+                                    </span>
+                                    {% endif %}
+                                    <span class="menu-row-text">
+                                        <span class="item-name">{{ item.name }}</span>
+                                        {% if item.description %}
+                                        <span class="item-desc">{{ item.description }}</span>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                {% if item.price %}
+                                <span class="item-price">{{ item.price }}</span>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                            {% for sub in category["subcategories"] %}
+                            <div class="menu-subcategory">
+                                <button type="button" class="subcategory-header" aria-expanded="false">
+                                    <span class="menu-category-text">
+                                        <span class="category-title category-title--sub">{{ sub.name }}</span>
+                                        <span class="category-subtitle">
+                                            {% if lang == "en" %}{{ sub.name_mk }}{% else %}{{ sub.name_en }}{% endif %}
+                                        </span>
+                                    </span>
+                                    <span class="category-toggle-icon" aria-hidden="true"></span>
+                                </button>
+                                <div class="subcategory-items">
+                                    {% for item in sub["items"] %}
+                                    <div class="menu-row">
+                                        <div class="menu-row-main">
+                                            {% if item.image %}
+                                            <span class="menu-row-thumb">
+                                                <img src="{{ url_for('static', filename=item.image) }}" alt="" loading="lazy">
+                                            </span>
+                                            {% endif %}
+                                            <span class="menu-row-text">
+                                                <span class="item-name">{{ item.name }}</span>
+                                                {% if item.description %}
+                                                <span class="item-desc">{{ item.description }}</span>
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        {% if item.price %}
+                                        <span class="item-price">{{ item.price }}</span>
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="site-section site-section--about" aria-labelledby="about-heading">
+            <div class="container">
+                <header class="section-header section-header--about">
+                    <h2 id="about-heading" class="section-title">{% if lang == "en" %}About{% else %}За нас{% endif %}</h2>
+                    <p class="section-subtitle">
+                        {% if lang == "en" %}
+                        Pause with us—a coffee, a plate, something poured just right, and space to linger.
+                        {% else %}
+                        Одморајте со нас—кафе, закуска или напиток приготвен како што треба, и простор за да останете.
+                        {% endif %}
+                    </p>
+                </header>
+
+                <div class="about-layout">
+                    <p class="about-kicker">
+                        {% if lang == "en" %}The lounge, reimagined for real life.{% else %}Лаунж за секојдневни моменти.{% endif %}
+                    </p>
+                    <div class="about-card about-card--body">
+                        <p class="about-lead">
+                            {% if lang == "en" %}
+                            Bliss Lounge Bar is a relaxed spot for coffee, food, and drinks—whether you are meeting friends or winding down after work.
+                            {% else %}
+                            Bliss Lounge Bar е опуштено место за кафе, храна и пијалоци—идеално за дружење со пријатели или одмор после работа.
+                            {% endif %}
+                        </p>
+                        <p class="about-body-text">
+                            {% if lang == "en" %}
+                            We keep the mood low-key and warm: aromas from the bar, soft light, and a menu built for grazing, sipping, and settling in—morning through evening.
+                            {% else %}
+                            Атмосферата е смирена и топла: мириси од барот, меко осветлување и мени со кое може долго да се ужива—од утро до вечер.
+                            {% endif %}
+                        </p>
+                    </div>
+                    <ul class="about-pills" aria-label="{% if lang == 'en' %}Highlights{% else %}Акценти{% endif %}">
+                        <li>
+                            <span class="about-pill">
+                                <span class="about-pill__icon" aria-hidden="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 9h14v2a5 5 0 0 1-5 5h-1v3H11v-3H9a5 5 0 0 1-5-5V9Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                        <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1M5 13h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span class="about-pill__text">
+                                    {% if lang == "en" %}Coffee & espresso{% else %}Кафе и еспресо{% endif %}
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="about-pill">
+                                <span class="about-pill__icon" aria-hidden="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 14h16l-2 7H6l-2-7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                        <path d="M8 14V8a4 4 0 0 1 8 0v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span class="about-pill__text">
+                                    {% if lang == "en" %}Food to share{% else %}Храна за дружење{% endif %}
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="about-pill">
+                                <span class="about-pill__icon" aria-hidden="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/>
+                                    </svg>
+                                </span>
+                                <span class="about-pill__text">
+                                    {% if lang == "en" %}Easy, golden-hour mood{% else %}Опуштена вечерна атмосфера{% endif %}
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer-inner">
+            <div class="site-footer-brand">
+                <span class="logo-title">Bliss</span>
+                <span class="logo-tagline">Lounge Bar</span>
+            </div>
+            <nav class="site-footer-nav">
+                <a href="#menu">{% if lang == "en" %}Menu{% else %}Мени{% endif %}</a>
+                <a href="#about">{% if lang == "en" %}About{% else %}За нас{% endif %}</a>
+                <a href="/">{% if lang == "en" %}Home{% else %}Дома{% endif %}</a>
+            </nav>
+            <p class="site-footer-copy">© {% if lang == "en" %}Bliss Lounge Bar{% else %}Bliss Lounge Bar{% endif %}</p>
         </div>
-        {% endfor %}
-
-    </div>
-</div>
-{% endfor %}
-    </section>
-
-    <footer>
-        <p>© Bliss Lounge Bar</p>
     </footer>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
