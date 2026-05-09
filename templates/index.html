@@ -54,13 +54,17 @@
     </header>
 
     <section class="hero">
-        <h2>
-            {% if lang == "en" %}
-            Welcome to Bliss Lounge Bar
-            {% else %}
-            Добредојдовте во Bliss Lounge Bar
-            {% endif %}
-        </h2>
+        <h2 class="hero-title">
+    {% if lang == "en" %}
+        Welcome to 
+    {% else %}
+        Добредојдовте во 
+    {% endif %}
+
+    <span class="hero-logo">
+        <img src="{{ url_for('static', filename='images/bliss-logo.png') }}" alt="Bliss">
+    </span>
+</h2>
 
         <p>
             {% if lang == "en" %}
@@ -119,42 +123,70 @@
 
         <!-- 🔹 ITEMS DIRECTLY IN CATEGORY -->
        {% for item in category["items"] %}
-        <div class="menu-item">
+<div class="menu-item">
+
+    {% if item.image %}
+    <div class="menu-item-image">
+        <img src="{{ url_for('static', filename=item.image) }}">
+    </div>
+    {% endif %}
+
+    <div class="menu-item-content">
+
+        <div class="menu-item-top">
             <h3>{{ item.name }}</h3>
-            <p>{{ item.description }}</p>
-            <strong>{{ item.price }}</strong>
 
-            {% if item.image %}
-            <img src="{{ url_for('static', filename=item.image) }}" style="width:100px;">
-            {% endif %}
+            <strong>
+                {{ item.price }}
+                {% if lang == "en" %} MKD {% else %} ДЕН {% endif %}
+            </strong>
         </div>
-        {% endfor %}
 
-        <!-- 🔹 SUBCATEGORIES -->
-        {% for sub in category["subcategories"] %}
-        <div class="menu-subcategory">
-
-            <h4>{{ sub.name }}</h4>
-
-            {% for item in sub["items"] %}
-            <div class="menu-item">
-                <h3>{{ item.name }}</h3>
-                <p>{{ item.description }}</p>
-                <strong>{{ item.price }}</strong>
-
-                {% if item.image %}
-                <img src="{{ url_for('static', filename=item.image) }}" style="width:100px;">
-                {% endif %}
-            </div>
-            {% endfor %}
-
-        </div>
-        {% endfor %}
+        <p>{{ item.description }}</p>
 
     </div>
+
 </div>
 {% endfor %}
-    </section>
+
+        <!-- 🔹 SUBCATEGORIES -->
+{% for sub in category["subcategories"] %}
+<div class="menu-subcategory">
+
+    <h4>{{ sub.name }}</h4>
+
+    {% for item in sub["items"] %}
+    <div class="menu-item">
+
+        {% if item.image %}
+        <div class="menu-item-image">
+            <img src="{{ url_for('static', filename=item.image) }}">
+        </div>
+        {% endif %}
+
+        <div class="menu-item-content">
+
+            <div class="menu-item-top">
+                <h3>{{ item.name }}</h3>
+
+                <strong>
+                    {{ item.price }}
+                    {% if lang == "en" %} MKD {% else %} ДЕН {% endif %}
+                </strong>
+            </div>
+
+            <p>{{ item.description }}</p>
+
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+    {% endfor %}
+        </div> <!-- CLOSE category-items -->
+</div> <!-- CLOSE menu-category -->
+{% endfor %}
 
     <footer>
         <p>© Bliss Lounge Bar</p>

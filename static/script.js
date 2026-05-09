@@ -13,6 +13,7 @@ if (langBtn) {
         button.addEventListener("click", function () {
             const items = button.nextElementSibling;
             items.classList.toggle("open");
+            button.classList.toggle("open"); // ADD THIS
         });
     });
 
