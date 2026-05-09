@@ -33,6 +33,32 @@ ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "bliss123")
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def delete_uploaded_image(image_path):
+    if not image_path:
+        return 
+    
+    image_path = image_path.replace("\\", "/").strip()
+
+    # Only delete files from static/uploads
+    if not image_path.startswith("uploads/"):
+        return
+    
+    filename = os.path.basename(image_path)
+
+    uploads_dir = os.path.abspath(
+        os.path.join(app.root_path, app.config["UPLOAD_FOLDER"])
+    )
+
+    full_path = os.path.abspath(
+        os.path.join(uploads_dir, filename)
+    )
+
+    #Saftey check to prevent deleting files outside of uploads
+    if not full_path.startswith(uploads_dir):
+        return
+    
+    if os.path.exists(full_path):
+        os.remove(full_path)
 
 def generate_id(text="item"):
     safe_text = text.lower().strip().replace(" ", "_")
@@ -853,7 +879,9 @@ def update_item(item_id):
     description_en = body.get("description_en", existing_item["description_en"])
     description_mk = body.get("description_mk", existing_item["description_mk"])
     price = body.get("price", existing_item["price"])
-    image = body.get("image", existing_item["image"])
+    old_image = existing_item["image"]
+    image = body.get("image", old_image)
+    delete_old_image_after_update = False
 
     image_file = request.files.get("image_file")
 
@@ -866,6 +894,7 @@ def update_item(item_id):
             image_file.save(image_path)
 
             image = f"uploads/{unique_filename}"
+            delete_old_image_after_update = True
         else:
             conn.close()
             return "Invalid image type. Use PNG, JPG, JPEG, WEBP, or GIF.", 400
@@ -901,6 +930,9 @@ def update_item(item_id):
 
     conn.commit()
 
+    if delete_old_image_after_update and old_image and old_image != image:
+        delete_uploaded_image(old_image)
+
     updated_item = conn.execute(
         "SELECT * FROM items WHERE id = ?",
         (item_id,),
@@ -915,11 +947,49 @@ def update_item(item_id):
         }
     )
 
+@app.route("/api/items/<item_id>/image", methods=["DELETE"])
+@api_login_required
+def delete_item_image(item_id):
+    conn = get_db()
+
+    existing_item = conn.execute(
+        "SELECT image FROM items WHERE id = ?",
+        (item_id,),
+    ).fetchone()
+
+    if not existing_item:
+        conn.close()
+        return jsonify({"error": "Item not found."}), 404
+    
+    old_image = existing_item["image"]
+
+    conn.execute(
+        "UPDATE items SET image = '' WHERE id = ?",
+        (item_id,),
+    )
+
+    conn.commit()
+    conn.close()
+    
+    delete_uploaded_image(old_image)
+    return jsonify({"message": "Item image deleted."})
+        
 
 @app.route("/api/items/<item_id>", methods=["DELETE"])
 @api_login_required
 def delete_item(item_id):
     conn = get_db()
+
+    existing_item = conn.execute(
+        "SELECT image FROM items WHERE id = ?",
+        (item_id,),
+    ).fetchone()
+
+    if not existing_item:
+        conn.close()
+        return jsonify({"error": "Item not found."}), 404
+    
+    old image = existing_item["image"]
 
     cursor = conn.execute(
         "DELETE FROM items WHERE id = ?",
@@ -932,6 +1002,8 @@ def delete_item(item_id):
 
     if deleted == 0:
         return jsonify({"error": "Item not found."}), 404
+    
+    delete_uploaded_image(old_image)
 
     return jsonify({"message": "Item deleted."})
 
