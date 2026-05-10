@@ -161,18 +161,126 @@ body::before {
 }
 
 .hero {
-    min-height: 80vh;
-    padding: 80px 20px;
-    padding-top: 120px !important;
+    position: relative;
+    min-height: 100vh;
+
+    padding: 150px 24px 90px;
     text-align: center;
 
-    background:
-        url("/static/images/BLISSDragonflyFM.svg")
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #080605;
+    border-bottom: 1px solid rgba(210, 155, 82, 0.25);
 }
 
-.hero-logo img {
-    height: 22px;
-    /* try this first */
+.hero::before {
+    content: "";
+    position: absolute;
+
+    width: 120%;
+    height: 120%;
+
+    background-image: url("/static/images/BLISSDragonflyFM.svg");
+    background-repeat: no-repeat;
+    background-position: center 55%;
+    background-size: 95% auto;
+
+    opacity: 0.22;
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(circle at center, rgba(210, 155, 82, 0.08), transparent 45%),
+        linear-gradient(to bottom, rgba(8, 6, 5, 0.2), #080605);
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    margin: 0;
+
+    color: #f3ead8;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(52px, 13vw, 96px);
+    line-height: 0.95;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.hero-title span {
+    display: block;
+
+    color: var(--accent-color);
+    font-size: 1.05em;
+    letter-spacing: 4px;
+}
+
+.hero-subtitle {
+    margin: 26px 0 24px;
+
+    color: #d8d0c3;
+    font-size: clamp(18px, 4vw, 28px);
+    letter-spacing: 8px;
+}
+
+.hero-text {
+    max-width: 620px;
+    margin: 0 auto 46px;
+
+    color: #d8d0c3;
+    font-size: clamp(24px, 5vw, 34px);
+    line-height: 1.25;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: min(100%, 540px);
+
+    padding: 20px 28px;
+
+    background: var(--accent-color);
+    color: #080605;
+
+    border: 1px solid var(--accent-color);
+    border-radius: 999px;
+
+    font-size: clamp(20px, 4vw, 30px);
+    font-weight: 500;
+    text-decoration: none;
+
+    box-shadow: 0 0 35px rgba(210, 155, 82, 0.18);
+
+    transition: 0.3s ease;
+}
+
+.hero-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 45px rgba(210, 155, 82, 0.3);
 }
 
 .button,
@@ -727,4 +835,165 @@ html {
 .footer-bottom p {
     font-size: clamp(18px, 4vw, 28px);
     color: rgba(216, 208, 195, 0.65);
+}
+
+/* MKD TITLE ADJUSTMENTS */
+
+html[lang="mk"] .hero-title {
+    font-size: clamp(38px, 8vw, 76px);
+    letter-spacing: -1px;
+    max-width: 100%;
+}
+
+html[lang="mk"] .hero-title span {
+    font-size: 1.15em;
+    letter-spacing: 4px;
+}
+
+/* ADMIN HEADER FIX */
+.admin-header {
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+
+    background: rgba(8, 6, 5, 0.96);
+    backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.admin-navbar {
+    min-height: 86px;
+    max-width: 1180px;
+    margin: 0 auto;
+
+    padding: 16px 28px;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 28px;
+}
+
+.admin-logo {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.admin-logo img {
+    height: 34px;
+    width: auto;
+    display: block;
+}
+
+.admin-logo-sub {
+    height: 14px !important;
+    opacity: 0.85;
+    position: relative;
+    bottom: 2px;
+}
+
+.admin-title {
+    text-align: left;
+}
+
+.admin-title span {
+    display: block;
+    color: var(--accent-color);
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.admin-title h1 {
+    margin: 0;
+    color: #f3ead8;
+    font-size: 34px;
+    line-height: 1;
+}
+
+.admin-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-nav-link {
+    color: #080605;
+    background: var(--accent-color);
+
+    padding: 10px 16px;
+    border-radius: 999px;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.admin-nav-link.danger {
+    background: #c23a3a;
+    color: white;
+}
+
+/* Gives the admin content clean spacing under the header */
+.admin-panel {
+    max-width: 1100px;
+    padding: 34px 22px 70px;
+}
+
+/* Makes each admin section cleaner */
+.admin-panel>section {
+    background: rgba(8, 6, 5, 0.72);
+    border: 1px solid rgba(210, 155, 82, 0.22);
+    border-radius: 22px;
+
+    padding: 26px;
+    margin-bottom: 28px;
+
+    backdrop-filter: blur(8px);
+}
+
+.admin-panel h2 {
+    margin-top: 0;
+    color: #f3ead8;
+}
+
+.admin-panel input,
+.admin-panel select {
+    border: 1px solid rgba(210, 155, 82, 0.25);
+}
+
+.admin-panel form button {
+    background: var(--accent-color);
+    color: #080605;
+    font-weight: 600;
+}
+
+/* Mobile admin header */
+@media (max-width: 768px) {
+    .admin-navbar {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 18px;
+    }
+
+    .admin-logo {
+        justify-content: center;
+    }
+
+    .admin-title {
+        text-align: center;
+    }
+
+    .admin-title h1 {
+        font-size: 30px;
+    }
+
+    .admin-nav-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }

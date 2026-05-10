@@ -55,33 +55,42 @@
     </header>
 
     <section class="hero">
-        <h2 class="hero-title">
-            {% if lang == "en" %}
-            Welcome to
-            {% else %}
-            Добредојдовте во
-            {% endif %}
+        <div class="hero-content">
 
-            <span class="hero-logo">
-                <img src="{{ url_for('static', filename='images/bliss-logo.png') }}" alt="Bliss">
-            </span>
-        </h2>
+            <h1 class="hero-title">
+                {% if lang == "en" %}
+                Welcome to
+                {% else %}
+                Добредојдовте во
+                {% endif %}
+                <span>BLISS</span>
+            </h1>
 
-        <p>
-            {% if lang == "en" %}
-            Food, coffee, drinks and good atmosphere.
-            {% else %}
-            Храна, кафе, пијалоци и добра атмосфера.
-            {% endif %}
-        </p>
+            <p class="hero-subtitle">
+                {% if lang == "en" %}
+                • Lounge Bar •
+                {% else %}
+                • Лаунџ Бар •
+                {% endif %}
+            </p>
 
-        <a href="#menu" class="button">
-            {% if lang == "en" %}
-            View Menu
-            {% else %}
-            Види Мени
-            {% endif %}
-        </a>
+            <p class="hero-text">
+                {% if lang == "en" %}
+                Fresh food, crafted drinks, and unforgettable moments.
+                {% else %}
+                Свежа храна, внимателно подготвени пијалоци и незаборавни моменти.
+                {% endif %}
+            </p>
+
+            <a href="#menu" class="hero-button">
+                {% if lang == "en" %}
+                View Menu
+                {% else %}
+                Види Мени
+                {% endif %}
+            </a>
+
+        </div>
     </section>
 
     <section id="featured" class="featured">
