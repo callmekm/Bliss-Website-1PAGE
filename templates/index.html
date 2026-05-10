@@ -63,16 +63,11 @@
                 {% else %}
                 Добредојдовте во
                 {% endif %}
-                <span>BLISS</span>
             </h1>
-
-            <p class="hero-subtitle">
-                {% if lang == "en" %}
-                • Lounge Bar •
-                {% else %}
-                • Лаунџ Бар •
-                {% endif %}
-            </p>
+            
+            <img class="hero-main-logo"
+                 src="{{ url_for('static', filename='images/bliss-logo.png') }}"
+                 alt="Bliss Lounge Bar">
 
             <p class="hero-text">
                 {% if lang == "en" %}

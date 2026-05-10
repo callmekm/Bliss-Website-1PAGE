@@ -997,3 +997,20 @@ html[lang="mk"] .hero-title span {
         flex-wrap: wrap;
     }
 }
+
+.hero .hero-main-logo {
+    display: block !important;
+    width: 320px !important;
+    max-width: 65vw !important;
+    height: auto !important;
+    margin: 20px auto 32px !important;
+    object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+    .hero .hero-main-logo {
+        width: 230px !important;
+        max-width: 75vw !important;
+        margin: 16px auto 28px !important;
+    }
+}
