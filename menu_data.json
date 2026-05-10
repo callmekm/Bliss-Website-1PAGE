@@ -1,38 +1,1084 @@
 {
     "categories": [
         {
-            "id": "coffee",
-            "name_en": "Coffee",
-            "name_mk": "Кафе",
-            "items": [
+            "id": "non_alcoholic_drinks",
+            "name_en": "NON ALCOHOLIC DRINKS",
+            "name_mk": "БЕЗАЛКОХОЛНИ ПИЈАЛОЦИ",
+            "items": [],
+            "subcategories": [
                 {
-                    "id": "irish_coffee_bd5cf49e",
-                    "name_en": "Irish Coffee",
-                    "name_mk": "Ирско Кафе",
-                    "description_en": "Irish coffee from the shores of ireland",
-                    "description_mk": "Ирско кафе од морињата на ирска",
-                    "price": "100",
-                    "image": "uploads/ac0f7d39598e4abf9f969846aca19d20_1.2.jpg",
-                    "featured": true
+                    "id": "na_water",
+                    "name_en": "WATER",
+                    "name_mk": "ВОДА",
+                    "items": [
+                        {
+                            "id": "na_water_ladna_025",
+                            "name_en": "Ladna 0.25",
+                            "name_mk": "Ладна 0.25",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "60",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_water_ladna_075",
+                            "name_en": "Ladna 0.75",
+                            "name_mk": "Ладна 0.75",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_water_dobra_gaz_025",
+                            "name_en": "Dobra Voda Gazirana 0.25",
+                            "name_mk": "Добра Вода Газирана 0.25",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "60",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_water_dobra_aktiv",
+                            "name_en": "Dobra Voda Aktiv",
+                            "name_mk": "Добра Вода Актив",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "80",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_water_dobra_wellness",
+                            "name_en": "Dobra Voda Wellness",
+                            "name_mk": "Добра Вода Велнес",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "80",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_water_san_pel",
+                            "name_en": "San Pelegrino Nar & Portokal",
+                            "name_mk": "Сан Пелегрино Калинка и Портокал",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_energy",
+                    "name_en": "ENERGY DRINKS",
+                    "name_mk": "ЕНЕРГЕТСКИ ПИЈАЛОЦИ",
+                    "items": [
+                        {
+                            "id": "na_energy_redbull",
+                            "name_en": "Red Bull",
+                            "name_mk": "Ред Бул",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "200",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_energy_redbull_zero",
+                            "name_en": "Red Bull Zero",
+                            "name_mk": "Ред Бул Зеро",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "200",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_juice_non_carb",
+                    "name_en": "NON CARBONATED JUICES",
+                    "name_mk": "НЕГАЗИРАНИ СОКОВИ",
+                    "items": [
+                        {
+                            "id": "na_juice_apple",
+                            "name_en": "Apple",
+                            "name_mk": "Јаболка",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_juice_peach",
+                            "name_en": "Peach",
+                            "name_mk": "Праска",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_juice_orange",
+                            "name_en": "Orange",
+                            "name_mk": "Портокал",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_juice_blueberry",
+                            "name_en": "Blueberry",
+                            "name_mk": "Боровница",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_carbonated",
+                    "name_en": "CARBONATED DRINKS",
+                    "name_mk": "ГАЗИРАНИ ПИЈАЛОЦИ",
+                    "items": [
+                        {
+                            "id": "na_carb_cola",
+                            "name_en": "Coca Cola",
+                            "name_mk": "Кока Кола",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "90",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_carb_cola_zero",
+                            "name_en": "Coca Cola Zero",
+                            "name_mk": "Кока Кола Зеро",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "90",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_carb_fanta",
+                            "name_en": "Fanta",
+                            "name_mk": "Фанта",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "90",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_carb_sprite",
+                            "name_en": "Sprite",
+                            "name_mk": "Спрајт",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "90",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_carb_tonic",
+                            "name_en": "Tonic",
+                            "name_mk": "Тоник",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "90",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_ice_tea",
+                    "name_en": "ICE TEA",
+                    "name_mk": "ЛЕДЕН ЧАЈ",
+                    "items": [
+                        {
+                            "id": "na_icetea_lemon",
+                            "name_en": "Lemon",
+                            "name_mk": "Лимон",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_icetea_peach",
+                            "name_en": "Peach",
+                            "name_mk": "Праска",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_fresh",
+                    "name_en": "FRESH JUICES",
+                    "name_mk": "ФРЕШ",
+                    "items": [
+                        {
+                            "id": "na_fresh_orange",
+                            "name_en": "Orange Fresh",
+                            "name_mk": "Фреш Портокал",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_fresh_mix",
+                            "name_en": "Mix Fresh",
+                            "name_mk": "Микс Фреш",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_lemonade",
+                    "name_en": "LEMONADES",
+                    "name_mk": "ЛИМОНАДИ",
+                    "items": [
+                        {
+                            "id": "na_lem_classic",
+                            "name_en": "Classic",
+                            "name_mk": "Класик",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_lem_strawberry",
+                            "name_en": "Strawberry",
+                            "name_mk": "Јагода",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_lem_raspberry",
+                            "name_en": "Raspberry",
+                            "name_mk": "Малина",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_lem_green_apple",
+                            "name_en": "Green Apple",
+                            "name_mk": "Зелена Јаболка",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_lem_kiwi",
+                            "name_en": "Kiwi",
+                            "name_mk": "Киви",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_lem_mango",
+                            "name_en": "Mango",
+                            "name_mk": "Манго",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_cedevita",
+                    "name_en": "CEDEVITA",
+                    "name_mk": "ЦЕДЕВИТА",
+                    "items": [
+                        {
+                            "id": "na_ced_green_lemon",
+                            "name_en": "Green Lemon",
+                            "name_mk": "Зелен Лимон",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "60",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_ced_lemon",
+                            "name_en": "Lemon",
+                            "name_mk": "Лимон",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "60",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_ced_orange",
+                            "name_en": "Orange",
+                            "name_mk": "Портокал",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "60",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_ced_elder_lemon",
+                            "name_en": "Elderflower & Lemon",
+                            "name_mk": "Зова и Лимон",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "60",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_ced_pine_mango",
+                            "name_en": "Pineapple & Mango",
+                            "name_mk": "Ананас и Манго",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "60",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_coffee",
+                    "name_en": "COFFEE",
+                    "name_mk": "КАФЕ",
+                    "items": [
+                        {
+                            "id": "na_coffee_espresso",
+                            "name_en": "Espresso",
+                            "name_mk": "Еспресо",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "70",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_coffee_macchiato",
+                            "name_en": "Macchiato",
+                            "name_mk": "Макијато",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "80",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_coffee_cappuccino",
+                            "name_en": "Cappuccino",
+                            "name_mk": "Капучино",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_coffee_latte",
+                            "name_en": "Latte",
+                            "name_mk": "Лате",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_coffee_irish",
+                            "name_en": "Irish Coffee",
+                            "name_mk": "Ирско Кафе",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_coffee_nescafe",
+                            "name_en": "Nescafe",
+                            "name_mk": "Нес Кафе",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_coffee_bliss",
+                            "name_en": "Bliss Coffee",
+                            "name_mk": "Блисс Кафе",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "140",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_coffee_turkish",
+                            "name_en": "Turkish Coffee",
+                            "name_mk": "Турско Кафе",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "60",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "na_hot",
+                    "name_en": "HOT DRINKS",
+                    "name_mk": "ТОПЛИ ПИЈАЛОЦИ",
+                    "items": [
+                        {
+                            "id": "na_hot_salep",
+                            "name_en": "Salep",
+                            "name_mk": "Салеп",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "80",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_hot_cocoa",
+                            "name_en": "Cocoa",
+                            "name_mk": "Какао",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "80",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_hot_milk",
+                            "name_en": "Milk",
+                            "name_mk": "Млеко",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "50",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_hot_choc",
+                            "name_en": "Hot Chocolate",
+                            "name_mk": "Топло Чоколадо",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_hot_white_choc",
+                            "name_en": "White Hot Chocolate",
+                            "name_mk": "Топло Бело Чоколадо",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_hot_tea",
+                            "name_en": "Tea",
+                            "name_mk": "Чај",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "70",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "na_hot_tea_rum",
+                            "name_en": "Tea with Rum",
+                            "name_mk": "Чај со Рум",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "alcoholic_drinks",
+            "name_en": "ALCOHOLIC DRINKS",
+            "name_mk": "АЛКОХОЛНИ ПИЈАЛОЦИ",
+            "items": [],
+            "subcategories": [
+                {
+                    "id": "al_rakija",
+                    "name_en": "RAKIJA & APERITIFS",
+                    "name_mk": "РАКИЈА И АПЕРИТИВИ",
+                    "items": [
+                        {
+                            "id": "al_rak_lozova",
+                            "name_en": "Lozova Rakija",
+                            "name_mk": "Лозова Ракија",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "80",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_rak_sv_trifun",
+                            "name_en": "Sv Trifun Rakija",
+                            "name_mk": "Св Трифун Ракија",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "140",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_rak_gordion",
+                            "name_en": "Gordion Amber Rakija",
+                            "name_mk": "Гордион Амбер Ракија",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "160",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_rak_mastika",
+                            "name_en": "Mastika",
+                            "name_mk": "Мастика",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "80",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_rak_ouzo",
+                            "name_en": "Ouzo",
+                            "name_mk": "Узо",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "80",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_rak_ouzo_plomari",
+                            "name_en": "Ouzo Plomari",
+                            "name_mk": "Узо Пломари",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_rak_hennessy",
+                            "name_en": "Hennessy",
+                            "name_mk": "Хенеси",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "280",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_rak_martini",
+                            "name_en": "Martini",
+                            "name_mk": "Мартини",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_rak_martini_rosso",
+                            "name_en": "Martini Rosso",
+                            "name_mk": "Мартини Росо",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "al_digestif",
+                    "name_en": "DIGESTIFS",
+                    "name_mk": "ДИГЕСТИВИ",
+                    "items": [
+                        {
+                            "id": "al_dig_jager",
+                            "name_en": "Jagermeister",
+                            "name_mk": "Јегер",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "150",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_dig_amaretto",
+                            "name_en": "Amaretto",
+                            "name_mk": "Амарето",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_dig_aperol",
+                            "name_en": "Aperol Spritz",
+                            "name_mk": "Аперол Сприц",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "200",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_dig_campari",
+                            "name_en": "Campari",
+                            "name_mk": "Кампари",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_dig_limoncello",
+                            "name_en": "Limoncello",
+                            "name_mk": "Лимончело",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "al_liqueur",
+                    "name_en": "LIQUEURS",
+                    "name_mk": "ЛИКЕРИ",
+                    "items": [
+                        {
+                            "id": "al_liq_malibu",
+                            "name_en": "Malibu",
+                            "name_mk": "Малибу",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "150",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_liq_baileys",
+                            "name_en": "Baileys",
+                            "name_mk": "Бејлис",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "150",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_liq_southern",
+                            "name_en": "Southern Comfort",
+                            "name_mk": "Саутерн Комфорт",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "150",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "al_tequila",
+                    "name_en": "TEQUILA",
+                    "name_mk": "ТЕКИЛА",
+                    "items": [
+                        {
+                            "id": "al_teq_silver",
+                            "name_en": "Tres Sombreros Silver",
+                            "name_mk": "Трес Сомбрерос Силвер",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_teq_gold",
+                            "name_en": "Tres Sombreros Gold",
+                            "name_mk": "Трес Сомбрерос Голд",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_teq_don_julio",
+                            "name_en": "Don Julio Blanco",
+                            "name_mk": "Дон Хулио Бланко",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "450",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "al_gin",
+                    "name_en": "GIN",
+                    "name_mk": "ЏИН",
+                    "items": [
+                        {
+                            "id": "al_gin_gordons",
+                            "name_en": "Gordons",
+                            "name_mk": "Гордонс",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "150",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_gin_gordons_pink",
+                            "name_en": "Gordons Pink",
+                            "name_mk": "Гордонс Пинк",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "150",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_gin_tanq10",
+                            "name_en": "Tanqueray No.10",
+                            "name_mk": "Танкереј No.10",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "220",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "al_vodka",
+                    "name_en": "VODKA",
+                    "name_mk": "ВОДКА",
+                    "items": [
+                        {
+                            "id": "al_vod_smirnoff",
+                            "name_en": "Smirnoff",
+                            "name_mk": "Смирноф",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "150",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_vod_titos",
+                            "name_en": "Tito's",
+                            "name_mk": "Тито'с",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "220",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_vod_greygoose",
+                            "name_en": "Grey Goose",
+                            "name_mk": "Греј Гус",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "350",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_vod_belvedere",
+                            "name_en": "Belvedere",
+                            "name_mk": "Белведере",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "350",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "al_whiskey",
+                    "name_en": "WHISKEY",
+                    "name_mk": "ВИСКИ",
+                    "items": [
+                        {
+                            "id": "al_wh_jw_red",
+                            "name_en": "Johnnie Walker Red Label",
+                            "name_mk": "Џони Вокер Ред Лабел",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_wh_jw_black",
+                            "name_en": "Johnnie Walker Black Label",
+                            "name_mk": "Џони Вокер Блек Лабел",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "280",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_wh_jw_dblack",
+                            "name_en": "Johnnie Walker Double Black",
+                            "name_mk": "Џони Вокер Дабл Блек",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "350",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_wh_jw_blue",
+                            "name_en": "Johnnie Walker Blue Label",
+                            "name_mk": "Џони Вокер Блу Лабел",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "1800",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_wh_talisker",
+                            "name_en": "Talisker Storm",
+                            "name_mk": "Талискер Сторм",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "250",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_wh_jd",
+                            "name_en": "Jack Daniels",
+                            "name_mk": "Џек Даниелс",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "250",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_wh_jd_honey",
+                            "name_en": "Jack Daniels Honey",
+                            "name_mk": "Џек Даниелс Хани",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "250",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_wh_jd_apple",
+                            "name_en": "Jack Daniels Apple",
+                            "name_mk": "Џек Даниелс Епл",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "250",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "al_bourbon",
+                    "name_en": "BOURBON",
+                    "name_mk": "БУРБОН",
+                    "items": [
+                        {
+                            "id": "al_bb_jim_beam",
+                            "name_en": "Jim Beam",
+                            "name_mk": "Џим Бим",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "al_beer",
+                    "name_en": "BEER",
+                    "name_mk": "ПИВО",
+                    "items": [
+                        {
+                            "id": "al_beer_dab",
+                            "name_en": "Dab",
+                            "name_mk": "Даб",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_beer_dab_amber",
+                            "name_en": "Dab Amber",
+                            "name_mk": "Даб Амбер",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_beer_corona",
+                            "name_en": "Corona",
+                            "name_mk": "Корона",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_beer_guinness",
+                            "name_en": "Guinness",
+                            "name_mk": "Гинис",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "220",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_beer_heineken",
+                            "name_en": "Heineken",
+                            "name_mk": "Хајникен",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_beer_heineken00",
+                            "name_en": "Heineken 0.0",
+                            "name_mk": "Хајникен 0.0",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_beer_skopsko",
+                            "name_en": "Skopsko",
+                            "name_mk": "Скопско",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "al_beer_skopsko_smooth",
+                            "name_en": "Skopsko Smooth",
+                            "name_mk": "Скопско Смут",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
                 }
             ]
         },
         {
             "id": "cocktails",
-            "name_en": "Cocktails",
-            "name_mk": "Коктели",
-            "items": [
-                {
-                    "id": "mojito",
-                    "name_en": "Mojito",
-                    "name_mk": "Мохито",
-                    "description_en": "Fresh mint cocktail.",
-                    "description_mk": "Свеж коктел со нане.",
-                    "price": "250 ден",
-                    "image": "",
-                    "featured": true
-                }
-            ]
+            "name_en": "COCKTAILS",
+            "name_mk": "КОКТЕЛИ",
+            "items": [],
+            "subcategories": []
+        },
+        {
+            "id": "food",
+            "name_en": "FOOD",
+            "name_mk": "ХРАНА",
+            "items": [],
+            "subcategories": []
+        },
+        {
+            "id": "desserts",
+            "name_en": "DESSERTS",
+            "name_mk": "ДЕСЕРТИ",
+            "items": [],
+            "subcategories": []
         }
     ]
 }

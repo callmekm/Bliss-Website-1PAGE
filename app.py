@@ -9,11 +9,12 @@ import uuid
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "temporary_secret_key_change_later")
 
+# Always use paths next to this app file — relative "menu.db" breaks if the server
+# cwd is not the project directory (empty DB → no such table: categories).
+DATABASE = os.path.join(app.root_path, "menu.db")
+OLD_JSON_FILE = os.path.join(app.root_path, "menu_data.json")
 
-DATABASE = "menu.db"
-OLD_JSON_FILE = "menu_data.json"
-
-UPLOAD_FOLDER = os.path.join("static", "uploads")
+UPLOAD_FOLDER = os.path.join(app.root_path, "static", "uploads")
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -237,6 +238,8 @@ def import_old_json_if_database_empty():
 
 
 def load_data():
+    init_db()
+
     conn = get_db()
 
     categories = conn.execute("SELECT * FROM categories ORDER BY rowid").fetchall()
