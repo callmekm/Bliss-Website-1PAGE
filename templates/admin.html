@@ -189,14 +189,14 @@
                 {% for sub in category["subcategories"] %}
                 <div class="admin-subcategory">
 
-                    <div style="display:flex; justify-content:space-between;">
+                    <div class="admin-subcategory-header">
                         <h4>{{ sub.name_en }}</h4>
 
-                        <button class="small danger delete-subcategory" data-subcategory-id="{{ sub.id }}">
+                        <button class="small danger delete-subcategory"
+                                data-subcategory-id="{{ sub.id }}">
                             {% if lang == "en" %}Delete{% else %}Избриши{% endif %}
                         </button>
                     </div>
-
                     {% for item in sub["items"] %}
                     <div class="admin-item">
 
