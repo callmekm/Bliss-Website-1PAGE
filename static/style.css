@@ -1759,3 +1759,130 @@ body.admin-page .admin-item {
     background: red !important;
 >>>>>>> 676709c (Admin panel fix)
 }
+
+/* Subcategory row layout */
+body.admin-page .admin-subcategory-header {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 16px !important;
+    padding: 18px 0 !important;
+    margin-top: 18px !important;
+}
+
+body.admin-page .admin-subcategory-header h4 {
+    margin: 0 !important;
+    color: #f3ead8 !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    flex: 1 !important;
+}
+
+/* Make subcategory delete button same size as normal buttons */
+body.admin-page .admin-subcategory-header .delete-subcategory {
+    margin-left: auto !important;
+
+    width: auto !important;
+    min-width: 96px !important;
+    max-width: 110px !important;
+    height: 46px !important;
+
+    padding: 0 18px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 999px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    flex: 0 0 auto !important;
+}
+
+body.admin-page .admin-subcategory-header {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    align-items: center !important;
+    gap: 16px !important;
+
+    width: 100% !important;
+    padding: 18px 0 !important;
+}
+
+body.admin-page .admin-subcategory-header h4 {
+    margin: 0 !important;
+    color: #f3ead8 !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+body.admin-page .admin-subcategory-header button.delete-subcategory {
+    width: auto !important;
+    min-width: 96px !important;
+    height: 46px !important;
+
+    padding: 0 18px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 999px !important;
+    background: #c83e45 !important;
+    color: white !important;
+
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    margin: 0 !important;
+    justify-self: end !important;
+}
+
+/* Fix main category header on mobile */
+@media (max-width: 768px) {
+    body.admin-page .admin-category-header {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+
+        align-items: start !important;
+        padding-bottom: 18px !important;
+    }
+
+    body.admin-page .admin-category-header h3 {
+        margin: 0 !important;
+
+        font-size: 26px !important;
+        line-height: 1.18 !important;
+
+        max-width: 100% !important;
+        word-break: normal !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    body.admin-page .admin-category-actions {
+        width: 100% !important;
+
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+
+    body.admin-page .admin-category-actions .delete-category {
+        width: auto !important;
+        min-width: 96px !important;
+        height: 46px !important;
+
+        padding: 0 18px !important;
+
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        border-radius: 999px !important;
+        margin: 0 !important;
+    }
+}
