@@ -58,16 +58,88 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+const editItemButtons = document.querySelectorAll(".edit-item");
 
-    const editItemButtons = document.querySelectorAll(".edit-item");
-    editItemButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            const itemId = button.dataset.itemId;
-            alert("Edit functionality for item " + itemId + " is not implemented yet.");
+editItemButtons.forEach(function (button) {
+    button.addEventListener("click", async function () {
+        const itemId = button.dataset.itemId;
+
+        const response = await fetch(`/api/items/${itemId}`, {
+            method: "GET",
+            headers: { "Accept": "application/json" },
         });
-    });
 
-    // 🔥 HAMBURGER MENU
+        if (!response.ok) {
+            alert("Could not load item.");
+            return;
+        }
+
+        const item = await response.json();
+
+        const nameEn = prompt("English name:", item.name_en);
+        if (nameEn === null) return;
+
+        const nameMk = prompt("Macedonian name:", item.name_mk);
+        if (nameMk === null) return;
+
+        const descriptionEn = prompt("English description:", item.description_en || "");
+        if (descriptionEn === null) return;
+
+        const descriptionMk = prompt("Macedonian description:", item.description_mk || "");
+        if (descriptionMk === null) return;
+
+        const price = prompt("Price:", item.price || "");
+        if (price === null) return;
+
+        const featured = confirm("Should this item be featured? Press OK for yes, Cancel for no.");
+
+        const updateResponse = await fetch(`/api/items/${itemId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify({
+                name_en: nameEn,
+                name_mk: nameMk,
+                description_en: descriptionEn,
+                description_mk: descriptionMk,
+                price: price,
+                featured: featured,
+            }),
+        });
+
+        if (updateResponse.ok) {
+            window.location.reload();
+        } else {
+            alert("Could not update item.");
+        }
+    });
+});
+
+// DELETE FEATURED ITEM
+document.querySelectorAll(".delete-featured-item").forEach(button => {
+    button.addEventListener("click", async () => {
+        const id = button.dataset.featuredId;
+
+        if (!id || !confirm("Delete this featured item?")) {
+            return;
+        }
+
+        const response = await fetch(`/api/featured-items/${id}`, {
+            method: "DELETE",
+            headers: { "Accept": "application/json" },
+        });
+
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert("Unable to delete featured item.");
+        }
+    });
+});
+
+    //  HAMBURGER MENU
     const hamburger = document.querySelector(".hamburger");
     const navbar = document.querySelector(".navbar");
     const navLinks = document.querySelectorAll(".nav-links a:not(.lang-btn)");

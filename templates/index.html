@@ -95,48 +95,42 @@
     </section>
 
     <section id="featured" class="featured">
-        <div class="featured-inner">
+    <h2>
+        {% if lang == "en" %}
+        Featured
+        {% else %}
+        Издвоено
+        {% endif %}
+    </h2>
 
-            {% for item in featured_items %}
-            <div class="featured-slide {% if loop.first %}active{% endif %}">
+    <div class="featured-slider">
+        {% for item in featured_items %}
+        <div class="featured-card">
 
-                {% if item.image %}
-                <div class="featured-image-frame">
-                    <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}">
-                </div>
-                {% endif %}
-
-                <p class="featured-label">
-                    {% if lang == "en" %}
-                    Featured
-                    {% else %}
-                    Издвоено
-                    {% endif %}
-                </p>
-
-                <h2>{{ item.name }}</h2>
-
-                <p class="featured-description">
-                    {{ item.description }}
-                </p>
-
-                <strong class="featured-price">
-                    {{ item.price }}
-                    {% if lang == "en" %} MKD {% else %} ДЕН {% endif %}
-                </strong>
-
+            {% if item.image %}
+            <div class="featured-image">
+                <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.title }}">
             </div>
-            {% endfor %}
+            {% endif %}
 
-            <div class="featured-dots">
-                {% for item in featured_items %}
-                <button class="featured-dot {% if loop.first %}active{% endif %}"
-                    data-slide="{{ loop.index0 }}"></button>
-                {% endfor %}
-            </div>
+            {% if item.label %}
+            <p class="featured-label">{{ item.label }}</p>
+            {% endif %}
+
+            <h3>{{ item.title }}</h3>
+
+            {% if item.description %}
+            <p>{{ item.description }}</p>
+            {% endif %}
+
+            {% if item.price %}
+            <strong>{{ item.price }}</strong>
+            {% endif %}
 
         </div>
-    </section>
+        {% endfor %}
+    </div>
+</section>
 
     <section id="menu" class="menu">
         <h2 class="section-heading">

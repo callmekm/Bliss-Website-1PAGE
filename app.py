@@ -114,6 +114,19 @@ def init_db():
             FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
             FOREIGN KEY (subcategory_id) REFERENCES subcategories(id) ON DELETE CASCADE
         );
+        CREATE TABLE IF NOT EXISTS featured_items (
+    id TEXT PRIMARY KEY,
+    label_en TEXT DEFAULT '',
+    label_mk TEXT DEFAULT '',
+    title_en TEXT NOT NULL,
+    title_mk TEXT NOT NULL,
+    description_en TEXT DEFAULT '',
+    description_mk TEXT DEFAULT '',
+    price TEXT DEFAULT '',
+    image TEXT DEFAULT '',
+    active INTEGER DEFAULT 1,
+    sort_order INTEGER DEFAULT 0
+);
     """)
 
     conn.commit()
@@ -326,6 +339,45 @@ def api_login_required(func):
 
     return wrapper
 
+def row_to_featured_item(row, lang="en"):
+    return {
+        "id": row["id"],
+
+        "label": row[f"label_{lang}"] or row["label_en"],
+        "label_en": row["label_en"],
+        "label_mk": row["label_mk"],
+
+        "title": row[f"title_{lang}"] or row["title_en"],
+        "title_en": row["title_en"],
+        "title_mk": row["title_mk"],
+
+        "description": row[f"description_{lang}"] or row["description_en"],
+        "description_en": row["description_en"],
+        "description_mk": row["description_mk"],
+
+        "price": row["price"],
+        "image": row["image"],
+        "active": bool(row["active"]),
+        "sort_order": row["sort_order"],
+    }
+
+
+def load_featured_items(lang="en"):
+    conn = get_db()
+
+    rows = conn.execute(
+        """
+        SELECT *
+        FROM featured_items
+        WHERE active = 1
+        ORDER BY sort_order, rowid
+        """
+    ).fetchall()
+
+    conn.close()
+
+    return [row_to_featured_item(row, lang) for row in rows]
+
 
 # -----------------------------
 # Language / translation helpers
@@ -412,7 +464,7 @@ def home():
         translate_category(category, lang) for category in data["categories"]
     ]
 
-    featured_items = get_featured_items(data, lang)
+    featured_items = load_featured_items(lang)
 
     return render_template(
         "index.html",
@@ -460,7 +512,14 @@ def logout():
 def admin():
     lang = get_language()
     data = load_data()
-    return render_template("admin.html", data=data, lang=lang)
+    featured_items = load_featured_items("en")
+
+    return render_template(
+        "admin.html",
+        data=data,
+        lang=lang,
+        featured_items=featured_items,
+    )
 
 
 # -----------------------------
@@ -477,7 +536,7 @@ def api_menu():
         translate_category(category, lang) for category in data["categories"]
     ]
 
-    featured_items = get_featured_items(data, lang)
+    featured_items = load_featured_items(lang)
 
     return jsonify(
         {
@@ -675,6 +734,103 @@ def delete_subcategory(subcategory_id):
         return jsonify({"error": "Subcategory not found."}), 404
 
     return jsonify({"message": "Subcategory deleted."})
+
+# -----------------------------
+# Featured Items API
+# -----------------------------
+@app.route("/api/featured-items", methods=["POST"])
+@api_login_required
+def add_featured_item():
+    body = request.form
+
+    label_en = body.get("label_en", "")
+    label_mk = body.get("label_mk", "")
+    title_en = body.get("title_en", "")
+    title_mk = body.get("title_mk", "")
+    description_en = body.get("description_en", "")
+    description_mk = body.get("description_mk", "")
+    price = body.get("price", "")
+    sort_order = body.get("sort_order", 0)
+    active = body.get("active", False)
+
+    image = ""
+    image_file = request.files.get("image_file")
+
+    if image_file and image_file.filename != "":
+        if allowed_file(image_file.filename):
+            safe_filename = secure_filename(image_file.filename)
+            unique_filename = f"{uuid.uuid4().hex}_{safe_filename}"
+
+            image_path = os.path.join(app.config["UPLOAD_FOLDER"], unique_filename)
+            image_file.save(image_path)
+
+            image = f"uploads/{unique_filename}"
+        else:
+            return "Invalid image type. Use PNG, JPG, JPEG, WEBP, or GIF.", 400
+
+    active = active in ["true", "True", "on", "1", True]
+
+    if not title_en or not title_mk:
+        return redirect(url_for("admin"))
+
+    conn = get_db()
+
+    conn.execute(
+        """
+        INSERT INTO featured_items (
+            id,
+            label_en,
+            label_mk,
+            title_en,
+            title_mk,
+            description_en,
+            description_mk,
+            price,
+            image,
+            active,
+            sort_order
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            generate_id(title_en),
+            label_en,
+            label_mk,
+            title_en,
+            title_mk,
+            description_en,
+            description_mk,
+            price,
+            image,
+            int(active),
+            int(sort_order or 0),
+        ),
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("admin"))
+
+
+@app.route("/api/featured-items/<featured_id>", methods=["DELETE"])
+@api_login_required
+def delete_featured_item(featured_id):
+    conn = get_db()
+
+    cursor = conn.execute(
+        "DELETE FROM featured_items WHERE id = ?",
+        (featured_id,),
+    )
+
+    conn.commit()
+    deleted = cursor.rowcount
+    conn.close()
+
+    if deleted == 0:
+        return jsonify({"error": "Featured item not found."}), 404
+
+    return jsonify({"message": "Featured item deleted."})
 
 
 # -----------------------------
@@ -876,6 +1032,23 @@ def add_item():
 
     return redirect_admin()
 
+
+@app.route("/api/items/<item_id>", methods=["GET"])
+@api_login_required
+def get_item(item_id):
+    conn = get_db()
+
+    item = conn.execute(
+        "SELECT * FROM items WHERE id = ?",
+        (item_id,),
+    ).fetchone()
+
+    conn.close()
+
+    if not item:
+        return jsonify({"error": "Item not found."}), 404
+
+    return jsonify(row_to_item(item))
 
 @app.route("/api/items/<item_id>", methods=["PUT"])
 @api_login_required

@@ -57,6 +57,64 @@
     </header>
 
     <main class="admin-panel">
+        <section>
+            <h2>Add Featured Item</h2>
+
+    <form action="/api/featured-items" method="POST" enctype="multipart/form-data">
+        <input name="label_en" placeholder="Label EN, example: Cocktails">
+        <input name="label_mk" placeholder="Label MK">
+
+        <input name="title_en" placeholder="Featured title EN" required>
+        <input name="title_mk" placeholder="Featured title MK" required>
+
+        <input name="description_en" placeholder="Description EN">
+        <input name="description_mk" placeholder="Description MK">
+
+        <input name="price" placeholder="Price, optional">
+
+        <input type="file" name="image_file" accept="image/*">
+
+        <input type="number" name="sort_order" placeholder="Order number" value="0">
+
+        <label>
+            <input type="checkbox" name="active" checked>
+            Active
+        </label>
+
+        <button type="submit">Add Featured Item</button>
+    </form>
+</section>
+
+<section>
+    <h2>Current Featured Items</h2>
+
+    {% for featured in featured_items %}
+    <div class="admin-item">
+
+        <div class="admin-item-main">
+            {% if featured.image %}
+            <img class="admin-item-image"
+                 src="{{ url_for('static', filename=featured.image) }}"
+                 alt="{{ featured.title_en }}">
+            {% endif %}
+
+            <div>
+                <strong>{{ featured.title_en }}</strong>
+                <p>{{ featured.label_en }}</p>
+                <p>{{ featured.price }}</p>
+            </div>
+        </div>
+
+        <div class="admin-item-actions">
+            <button class="small danger delete-featured-item"
+                    data-featured-id="{{ featured.id }}">
+                Delete
+            </button>
+        </div>
+
+    </div>
+    {% endfor %}
+</section>
 
     <div class="admin-panel-intro">
         <span class="admin-panel-intro-kicker">{% if lang == "en" %}Bliss Management{% else %}Bliss менаџмент{% endif %}</span>
