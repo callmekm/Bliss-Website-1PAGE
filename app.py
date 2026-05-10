@@ -26,6 +26,14 @@ ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "bliss123")
 
 
+@app.before_request
+def persist_language_from_query():
+    """Keep ?lang=en|mk in session so login, admin, and redirects stay consistent."""
+    lang = request.args.get("lang")
+    if lang in ("en", "mk"):
+        session["lang"] = lang
+
+
 # -----------------------------
 # Helper functions
 # -----------------------------
@@ -312,7 +320,7 @@ def api_login_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         if not session.get("admin_logged_in"):
-            return redirect(url_for("login"))
+            return redirect(url_for("login", lang=get_language()))
 
         return func(*args, **kwargs)
 
@@ -325,12 +333,14 @@ def api_login_required(func):
 
 
 def get_language():
-    lang = request.args.get("lang", "en")
-
-    if lang not in ["en", "mk"]:
-        lang = "en"
-
+    lang = session.get("lang", "en")
+    if lang not in ("en", "mk"):
+        return "en"
     return lang
+
+
+def redirect_admin():
+    return redirect(url_for("admin", lang=get_language()))
 
 
 def translate_item(item, lang):
@@ -419,7 +429,8 @@ def home():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    error = None
+    lang = get_language()
+    login_failed = False
 
     if request.method == "POST":
         username = request.form.get("username")
@@ -427,24 +438,29 @@ def login():
 
         if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
             session["admin_logged_in"] = True
-            return redirect(url_for("admin"))
+            return redirect_admin()
 
-        error = "Wrong username or password."
+        login_failed = True
 
-    return render_template("login.html", error=error)
+    return render_template("login.html", lang=lang, login_failed=login_failed)
 
 
 @app.route("/logout")
 def logout():
+    lang = session.get("lang", "en")
+    if lang not in ("en", "mk"):
+        lang = "en"
     session.clear()
-    return redirect(url_for("home"))
+    session["lang"] = lang
+    return redirect(url_for("home", lang=lang))
 
 
 @app.route("/admin")
 @api_login_required
 def admin():
+    lang = get_language()
     data = load_data()
-    return render_template("admin.html", data=data)
+    return render_template("admin.html", data=data, lang=lang)
 
 
 # -----------------------------
@@ -492,7 +508,7 @@ def add_category():
                 400,
             )
 
-        return redirect(url_for("admin"))
+        return redirect_admin()
 
     new_category = {
         "id": generate_id(name_en),
@@ -534,7 +550,7 @@ def add_category():
             201,
         )
 
-    return redirect(url_for("admin"))
+    return redirect_admin()
 
 
 @app.route("/api/categories/<category_id>", methods=["DELETE"])
@@ -582,7 +598,7 @@ def add_subcategory():
                 400,
             )
 
-        return redirect(url_for("admin"))
+        return redirect_admin()
 
     conn = get_db()
 
@@ -597,7 +613,7 @@ def add_subcategory():
         if request.is_json:
             return jsonify({"error": "Category not found."}), 404
 
-        return redirect(url_for("admin"))
+        return redirect_admin()
 
     new_subcategory = {
         "id": generate_id(name_en),
@@ -638,7 +654,7 @@ def add_subcategory():
             201,
         )
 
-    return redirect(url_for("admin"))
+    return redirect_admin()
 
 
 @app.route("/api/subcategories/<subcategory_id>", methods=["DELETE"])
@@ -715,7 +731,7 @@ def add_item():
                 400,
             )
 
-        return redirect(url_for("admin"))
+        return redirect_admin()
 
     new_item = {
         "id": generate_id(name_en),
@@ -746,7 +762,7 @@ def add_item():
             if request.is_json:
                 return jsonify({"error": "Subcategory not found."}), 404
 
-            return redirect(url_for("admin"))
+            return redirect_admin()
 
         conn.execute(
             """
@@ -792,7 +808,7 @@ def add_item():
                 201,
             )
 
-        return redirect(url_for("admin"))
+        return redirect_admin()
 
     if category_id:
         category = conn.execute(
@@ -806,7 +822,7 @@ def add_item():
             if request.is_json:
                 return jsonify({"error": "Category not found."}), 404
 
-            return redirect(url_for("admin"))
+            return redirect_admin()
 
         conn.execute(
             """
@@ -851,14 +867,14 @@ def add_item():
                 201,
             )
 
-        return redirect(url_for("admin"))
+        return redirect_admin()
 
     conn.close()
 
     if request.is_json:
         return jsonify({"error": "Choose a category or subcategory."}), 400
 
-    return redirect(url_for("admin"))
+    return redirect_admin()
 
 
 @app.route("/api/items/<item_id>", methods=["PUT"])

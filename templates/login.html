@@ -1,30 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}">
 
 <head>
     <meta charset="UTF-8">
-    <title>Admin Login - Bliss</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="dark">
+    <title>{% if lang == "en" %}Admin Login — Bliss{% else %}Админ најава — Bliss{% endif %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<body class="admin-login-page">
 
-    
-    <section class="admin-login">
-        <h1>Admin Login</h1>
+    <header>
+        <nav class="navbar">
+            <div class="nav-top">
+                <a href="{{ url_for('home', lang=lang) }}" class="logo">
+                    <img src="{{ url_for('static', filename='images/bliss-logo (BLISS).png') }}" alt="Bliss Logo">
+                    <img class="logo-sub" src="{{ url_for('static', filename='images/bliss-logo (LOUNGE BAR).png') }}"
+                        alt="Lounge Bar">
+                </a>
 
-        {% if error %}
-        <p class="error">{{ error }}</p>
-        {% endif %}
+                <div class="nav-actions">
+                    {% if lang == "en" %}
+                    <a href="{{ url_for('login', lang='mk') }}" class="lang-btn">MK</a>
+                    {% else %}
+                    <a href="{{ url_for('login', lang='en') }}" class="lang-btn">EN</a>
+                    {% endif %}
 
-        <form method="POST">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
+                    <button type="button" class="hamburger" aria-label="{% if lang == "en" %}Menu{% else %}Мени{% endif %}">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
 
-            <button type="submit">Login</button>
-        </form>
-    </section>
+            <div class="nav-links">
+                <a href="{{ url_for('home', lang=lang) }}">{% if lang == "en" %}Home{% else %}Почетна{% endif %}</a>
+                <a href="{{ url_for('home', lang=lang) }}#featured">{% if lang == "en" %}Featured{% else %}Издвоено{% endif %}</a>
+                <a href="{{ url_for('home', lang=lang) }}#menu">{% if lang == "en" %}Menu{% else %}Мени{% endif %}</a>
+                <a href="{{ url_for('home', lang=lang) }}#about">{% if lang == "en" %}About Us{% else %}За нас{% endif %}</a>
+                <a href="{{ url_for('home', lang=lang) }}#footer">{% if lang == "en" %}Visit Us{% else %}Посетете нè{% endif %}</a>
 
+                {% if lang == "en" %}
+                <a href="{{ url_for('login', lang='mk') }}" class="lang-btn">MK</a>
+                {% else %}
+                <a href="{{ url_for('login', lang='en') }}" class="lang-btn">EN</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <div class="admin-login-page-inner">
+        <main class="admin-login">
+            <h1>{% if lang == "en" %}Admin Login{% else %}Админ најава{% endif %}</h1>
+
+            {% if login_failed %}
+            <p class="admin-login-error" role="alert">
+                {% if lang == "en" %}Wrong username or password.{% else %}Погрешно корисничко име или лозинка.{% endif %}
+            </p>
+            {% endif %}
+
+            <form method="POST" class="admin-login-form" action="{{ url_for('login', lang=lang) }}">
+                <input type="text" name="username"
+                    placeholder="{% if lang == "en" %}Username{% else %}Корисничко име{% endif %}"
+                    autocomplete="username" autocapitalize="none" spellcheck="false" required
+                    aria-label="{% if lang == "en" %}Username{% else %}Корисничко име{% endif %}">
+                <input type="password" name="password"
+                    placeholder="{% if lang == "en" %}Password{% else %}Лозинка{% endif %}"
+                    autocomplete="current-password" required
+                    aria-label="{% if lang == "en" %}Password{% else %}Лозинка{% endif %}">
+
+                <button type="submit" class="admin-login-submit">{% if lang == "en" %}Login{% else %}Најава{% endif %}</button>
+            </form>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>

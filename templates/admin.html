@@ -1,49 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}">
 
 <head>
     <meta charset="UTF-8">
-    <title>Bliss Admin Panel</title>
+    <title>{% if lang == "en" %}Bliss Admin Panel{% else %}Bliss админ панел{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=admin999">
 </head>
 
 <body class="admin-page">
 
-    <header class="admin-header">
-        <nav class="admin-navbar">
+    <header>
+        <nav class="navbar">
+            <div class="nav-top">
+                <a href="{{ url_for('home', lang=lang) }}" class="logo">
+                    <img src="{{ url_for('static', filename='images/bliss-logo (BLISS).png') }}" alt="Bliss Logo">
+                    <img class="logo-sub" src="{{ url_for('static', filename='images/bliss-logo (LOUNGE BAR).png') }}"
+                        alt="Lounge Bar">
+                </a>
 
-            <div class="admin-title">
-                <span>Bliss Management</span>
-                <h1>Admin Panel</h1>
+                <div class="nav-actions">
+                    {% if lang == "en" %}
+                    <a href="{{ url_for('admin', lang='mk') }}" class="lang-btn">MK</a>
+                    {% else %}
+                    <a href="{{ url_for('admin', lang='en') }}" class="lang-btn">EN</a>
+                    {% endif %}
+
+                    <button type="button" class="hamburger" aria-label="{% if lang == "en" %}Menu{% else %}Мени{% endif %}">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
             </div>
 
-            <div class="admin-nav-actions">
-                <a href="/" class="admin-nav-link">View Site</a>
-                <a href="/logout" class="admin-nav-link danger">Logout</a>
-            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('home', lang=lang) }}">{% if lang == "en" %}Home{% else %}Почетна{% endif %}</a>
+                <a href="{{ url_for('home', lang=lang) }}#featured">{% if lang == "en" %}Featured{% else %}Издвоено{% endif %}</a>
+                <a href="{{ url_for('home', lang=lang) }}#menu">{% if lang == "en" %}Menu{% else %}Мени{% endif %}</a>
+                <a href="{{ url_for('home', lang=lang) }}#about">{% if lang == "en" %}About Us{% else %}За нас{% endif %}</a>
+                <a href="{{ url_for('home', lang=lang) }}#footer">{% if lang == "en" %}Visit Us{% else %}Посетете нè{% endif %}</a>
+                <a href="{{ url_for('logout', lang=lang) }}">{% if lang == "en" %}Logout{% else %}Одјава{% endif %}</a>
 
+                {% if lang == "en" %}
+                <a href="{{ url_for('admin', lang='mk') }}" class="lang-btn">MK</a>
+                {% else %}
+                <a href="{{ url_for('admin', lang='en') }}" class="lang-btn">EN</a>
+                {% endif %}
+            </div>
         </nav>
     </header>
 
     <main class="admin-panel">
 
+    <div class="admin-panel-intro">
+        <span class="admin-panel-intro-kicker">{% if lang == "en" %}Bliss Management{% else %}Bliss менаџмент{% endif %}</span>
+        <h1 class="admin-panel-intro-title">{% if lang == "en" %}Admin Panel{% else %}Админ панел{% endif %}</h1>
+    </div>
+
     <!-- ================= CATEGORY ================= -->
 
     <section>
-        <h2>Add Category</h2>
+        <h2>{% if lang == "en" %}Add Category{% else %}Додај категорија{% endif %}</h2>
 
         <form action="/api/categories" method="POST">
-            <input type="text" name="name_en" placeholder="English name" required>
-            <input type="text" name="name_mk" placeholder="Macedonian name" required>
-            <button type="submit">Add Category</button>
+            <input type="text" name="name_en"
+                placeholder="{% if lang == "en" %}English name{% else %}Име (англиски){% endif %}" required>
+            <input type="text" name="name_mk"
+                placeholder="{% if lang == "en" %}Macedonian name{% else %}Име (македонски){% endif %}" required>
+            <button type="submit">{% if lang == "en" %}Add Category{% else %}Додај{% endif %}</button>
         </form>
     </section>
 
     <!-- ================= SUBCATEGORY ================= -->
 
     <section>
-        <h2>Add Subcategory</h2>
+        <h2>{% if lang == "en" %}Add Subcategory{% else %}Додај подкатегорија{% endif %}</h2>
 
         <form action="/api/subcategories" method="POST">
             <select name="category_id" required>
@@ -54,23 +91,24 @@
                 {% endfor %}
             </select>
 
-            <input type="text" name="name_en" placeholder="English name" required>
-            <input type="text" name="name_mk" placeholder="Macedonian name" required>
+            <input type="text" name="name_en"
+                placeholder="{% if lang == "en" %}English name{% else %}Име (англиски){% endif %}" required>
+            <input type="text" name="name_mk"
+                placeholder="{% if lang == "en" %}Macedonian name{% else %}Име (македонски){% endif %}" required>
 
-            <button type="submit">Add Subcategory</button>
+            <button type="submit">{% if lang == "en" %}Add Subcategory{% else %}Додај{% endif %}</button>
         </form>
     </section>
 
     <!-- ================= ITEM ================= -->
 
     <section>
-        <h2>Add Item</h2>
+        <h2>{% if lang == "en" %}Add Item{% else %}Додај ставка{% endif %}</h2>
 
         <form action="/api/items" method="POST" enctype="multipart/form-data">
 
-            <!-- SMART TARGET SELECT -->
             <select name="target_id" required>
-                <option value="">Select where to add</option>
+                <option value="">{% if lang == "en" %}Select where to add{% else %}Избери каде да се додаде{% endif %}</option>
 
                 {% for category in data.categories %}
                 <option value="category|{{ category.id }}">
@@ -85,29 +123,34 @@
                 {% endfor %}
             </select>
 
-            <input type="text" name="name_en" placeholder="Item name EN" required>
-            <input type="text" name="name_mk" placeholder="Item name MK" required>
+            <input type="text" name="name_en"
+                placeholder="{% if lang == "en" %}Item name EN{% else %}Име EN{% endif %}" required>
+            <input type="text" name="name_mk"
+                placeholder="{% if lang == "en" %}Item name MK{% else %}Име MK{% endif %}" required>
 
-            <input type="text" name="description_en" placeholder="Description EN">
-            <input type="text" name="description_mk" placeholder="Description MK">
+            <input type="text" name="description_en"
+                placeholder="{% if lang == "en" %}Description EN{% else %}Опис EN{% endif %}">
+            <input type="text" name="description_mk"
+                placeholder="{% if lang == "en" %}Description MK{% else %}Опис MK{% endif %}">
 
-            <input type="text" name="price" placeholder="Price">
+            <input type="text" name="price"
+                placeholder="{% if lang == "en" %}Price{% else %}Цена{% endif %}">
 
             <input type="file" name="image_file" accept="image/*">
 
             <label>
                 <input type="checkbox" name="featured">
-                Featured
+                {% if lang == "en" %}Featured{% else %}Издвоено{% endif %}
             </label>
 
-            <button type="submit">Add Item</button>
+            <button type="submit">{% if lang == "en" %}Add Item{% else %}Додај{% endif %}</button>
         </form>
     </section>
 
     <!-- ================= MENU ================= -->
 
     <section>
-        <h2>Current Menu</h2>
+        <h2>{% if lang == "en" %}Current Menu{% else %}Тековно мени{% endif %}</h2>
 
         {% for category in data.categories %}
         <div class="admin-category">
@@ -116,13 +159,12 @@
                 <h3>{{ category.name_en }} / {{ category.name_mk }}</h3>
 
                 <button class="small danger delete-category" data-category-id="{{ category.id }}">
-                    Delete
+                    {% if lang == "en" %}Delete{% else %}Избриши{% endif %}
                 </button>
             </div>
 
             <div class="admin-category-items">
 
-                <!-- CATEGORY ITEMS -->
                 {% for item in category["items"] %}
                 <div class="admin-item">
                     <div class="admin-item-main">
@@ -138,13 +180,12 @@
                     </div>
 
                     <div>
-                        <button class="small edit-item" data-item-id="{{ item.id }}">Edit</button>
-                        <button class="small danger delete-item" data-item-id="{{ item.id }}">Delete</button>
+                        <button class="small edit-item" data-item-id="{{ item.id }}">{% if lang == "en" %}Edit{% else %}Уреди{% endif %}</button>
+                        <button class="small danger delete-item" data-item-id="{{ item.id }}">{% if lang == "en" %}Delete{% else %}Избриши{% endif %}</button>
                     </div>
                 </div>
                 {% endfor %}
 
-                <!-- SUBCATEGORIES -->
                 {% for sub in category["subcategories"] %}
                 <div class="admin-subcategory">
 
@@ -152,7 +193,7 @@
                         <h4>{{ sub.name_en }}</h4>
 
                         <button class="small danger delete-subcategory" data-subcategory-id="{{ sub.id }}">
-                            Delete
+                            {% if lang == "en" %}Delete{% else %}Избриши{% endif %}
                         </button>
                     </div>
 
@@ -172,8 +213,8 @@
                         </div>
 
                         <div>
-                            <button class="small edit-item" data-item-id="{{ item.id }}">Edit</button>
-                            <button class="small danger delete-item" data-item-id="{{ item.id }}">Delete</button>
+                            <button class="small edit-item" data-item-id="{{ item.id }}">{% if lang == "en" %}Edit{% else %}Уреди{% endif %}</button>
+                            <button class="small danger delete-item" data-item-id="{{ item.id }}">{% if lang == "en" %}Delete{% else %}Избриши{% endif %}</button>
                         </div>
 
                     </div>

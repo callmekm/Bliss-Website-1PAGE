@@ -70,48 +70,53 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🔥 HAMBURGER MENU
     const hamburger = document.querySelector(".hamburger");
     const navbar = document.querySelector(".navbar");
-    const navLinks = document.querySelectorAll(".nav-links a");
+    const navLinks = document.querySelectorAll(".nav-links a:not(.lang-btn)");
+
+    function syncNavLinkActiveFromHash() {
+        const hash = window.location.hash || "";
+        navLinks.forEach((l) => {
+            const h = l.getAttribute("href") || "";
+            l.classList.toggle("nav-link-active", hash !== "" && h === hash);
+        });
+    }
 
     // RESET STATE ON LOAD
     if (navbar) navbar.classList.remove("open");
     if (hamburger) hamburger.classList.remove("open");
-    navLinks.forEach(l => l.classList.remove("active"));
 
-    // TOGGLE MENU
+    // TOGGLE MENU — opening clears section underline so it does not “stick” when reopening
     if (hamburger && navbar) {
         hamburger.addEventListener("click", function () {
+            const opening = !navbar.classList.contains("open");
             navbar.classList.toggle("open");
             hamburger.classList.toggle("open");
+            if (opening) {
+                navLinks.forEach((l) => l.classList.remove("nav-link-active"));
+            }
         });
     }
 
-    // NAV LINK CLICK LOGIC
-    navLinks.forEach(link => {
+    // NAV LINK CLICK: close drawer + mark current section (hash links only)
+    navLinks.forEach((link) => {
         link.addEventListener("click", function () {
-            const href = this.getAttribute("href");
+            const href = this.getAttribute("href") || "";
 
-            // remove underline instantly (no animation flash)
-            navLinks.forEach(l => {
-                l.classList.add("no-anim");
-                l.classList.remove("active");
-            });
+            if (href.startsWith("#")) {
+                navLinks.forEach((l) => l.classList.remove("nav-link-active"));
+                this.classList.add("nav-link-active");
+            } else {
+                navLinks.forEach((l) => l.classList.remove("nav-link-active"));
+            }
 
-            // force reflow so transition reset applies immediately
-            void document.body.offsetWidth;
-
-            navLinks.forEach(l => l.classList.remove("no-anim"));
-
-            // CLOSE MOBILE MENU
-            if (navbar.classList.contains("open")) {
+            if (navbar && navbar.classList.contains("open")) {
                 navbar.classList.remove("open");
                 hamburger.classList.remove("open");
             }
-
-            // only keep active for real pages (optional — you can remove this entirely)
-            if (!href.startsWith("#")) {
-            }
         });
     });
+
+    window.addEventListener("hashchange", syncNavLinkActiveFromHash);
+    syncNavLinkActiveFromHash();
 
     // DELETE SUBCATEGORY
     document.querySelectorAll(".delete-subcategory").forEach(button => {

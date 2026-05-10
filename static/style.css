@@ -1,13 +1,17 @@
 :root {
     --accent-color: #d29b52;
 
-    /* One accent glow recipe site-wide (modest underglow + soft halo) */
-    --glow-accent-1: 0 8px 20px rgba(210, 155, 82, 0.2);
-    --glow-accent-2: 0 0 26px rgba(210, 155, 82, 0.12);
-    --glow-accent-3: 0 0 38px rgba(210, 155, 82, 0.07);
-    --glow-accent-hover-1: 0 10px 24px rgba(210, 155, 82, 0.26);
-    --glow-accent-hover-2: 0 0 30px rgba(210, 155, 82, 0.16);
-    --glow-accent-hover-3: 0 0 44px rgba(210, 155, 82, 0.1);
+    /* Typography: elegant display + readable body (loaded via Google Fonts in templates) */
+    --font-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+
+    /* Subtle accent glow site-wide (lighter than before) */
+    --glow-accent-1: 0 6px 16px rgba(210, 155, 82, 0.11);
+    --glow-accent-2: 0 3px 10px rgba(210, 155, 82, 0.07);
+    --glow-accent-3: 0 0 18px rgba(210, 155, 82, 0.045);
+    --glow-accent-hover-1: 0 8px 20px rgba(210, 155, 82, 0.16);
+    --glow-accent-hover-2: 0 4px 12px rgba(210, 155, 82, 0.1);
+    --glow-accent-hover-3: 0 0 22px rgba(210, 155, 82, 0.065);
 }
 
 html {
@@ -20,12 +24,32 @@ html {
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body);
     color: white;
 
     background-color: #0e0a08;
 
     position: relative;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-display);
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-body);
+}
+
+button.category-toggle,
+.hero-button,
+.hero-button-outline {
+    font-family: var(--font-display);
 }
 
 body::before {
@@ -114,28 +138,41 @@ body::before {
     font-size: 14px;
     color: var(--accent-color);
     opacity: 0.9;
-    transition: 0.3s;
+    transition: opacity 0.3s ease, transform 0.3s ease, text-decoration-color 0.2s ease;
     position: relative;
+
+    text-decoration: none;
 }
 
-.nav-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0%;
-    height: 2px;
-    background: var(--accent-color);
-    transition: 0.3s;
+/* Main nav labels (not language toggle): display font + bold */
+.nav-links a:not(.lang-btn) {
+    font-family: var(--font-display);
+    font-weight: 700;
 }
 
-.nav-links a:hover {
+.nav-links .lang-btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+}
+
+.nav-links a:not(.lang-btn):hover {
     opacity: 1;
     transform: translateX(4px);
 }
 
-.nav-links a:hover::after {
-    width: 100%;
+/* Underline only while pressed / keyboard focus — not a permanent hover line */
+.nav-links a:not(.lang-btn):active,
+.nav-links a:not(.lang-btn):focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.28em;
+}
+
+/* Current in-page section (hash), set from script */
+.nav-links a:not(.lang-btn).nav-link-active {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.28em;
 }
 
 .nav-top {
@@ -256,7 +293,7 @@ body::before {
 
     gap: 8px;
 
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--font-display);
     font-size: clamp(42px, 10.5vw, 78px);
     line-height: 1;
     font-weight: 700;
@@ -423,11 +460,209 @@ button {
 
 .featured,
 .menu,
-.admin-panel,
-.admin-login {
+.admin-panel {
     padding: 40px 20px;
     max-width: 900px;
     margin: auto;
+}
+
+/* -----------------------------
+   ADMIN LOGIN (mobile-first)
+----------------------------- */
+
+.admin-login-page {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+/* Center card below the same fixed navbar as the public site */
+.admin-login-page-inner {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: calc(100dvh - 70px);
+    padding: calc(70px + max(14px, env(safe-area-inset-top, 0px))) max(16px, env(safe-area-inset-right, 0px)) 36px
+        max(16px, env(safe-area-inset-left, 0px));
+}
+
+@media (min-width: 769px) {
+    .admin-login-page-inner {
+        padding-top: calc(88px + 20px);
+    }
+}
+
+.admin-login {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 28px 20px 26px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    border-radius: 22px;
+    border: 1px solid rgba(210, 155, 82, 0.2);
+    background: rgba(8, 6, 5, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.admin-login h1 {
+    margin: 0 0 1.25rem;
+
+    text-align: center;
+    font-size: clamp(1.45rem, 5.5vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #f3ead8;
+}
+
+.admin-login-error {
+    margin: 0 0 1rem;
+    padding: 12px 14px;
+
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.35;
+
+    color: #ffb4b4;
+    background: rgba(200, 62, 69, 0.18);
+    border: 1px solid rgba(200, 62, 69, 0.45);
+    border-radius: 12px;
+}
+
+.admin-login-form {
+    display: grid;
+    gap: 14px;
+    width: 100%;
+    margin: 0;
+}
+
+.admin-login-form input {
+    width: 100%;
+    box-sizing: border-box;
+
+    min-height: 48px;
+    padding: 14px 16px;
+
+    font-size: 16px;
+    line-height: 1.3;
+
+    color: #f3ead8;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(210, 155, 82, 0.28);
+    border-radius: 14px;
+    outline: none;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-login-form input::placeholder {
+    color: rgba(216, 208, 195, 0.55);
+}
+
+.admin-login-form input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(210, 155, 82, 0.12);
+}
+
+/* Replace browser autofill green/yellow with accent-tinted field */
+.admin-login-form input:autofill,
+.admin-login-form input:autofill:hover,
+.admin-login-form input:autofill:focus,
+.admin-login-form input:-webkit-autofill,
+.admin-login-form input:-webkit-autofill:hover,
+.admin-login-form input:-webkit-autofill:focus,
+.admin-login-form input:-webkit-autofill:active {
+    -webkit-text-fill-color: #f3ead8 !important;
+    caret-color: var(--accent-color);
+
+    border-color: rgba(210, 155, 82, 0.5) !important;
+
+    /* WebKit ignores background on autofill; inset shadow paints the fill */
+    box-shadow:
+        0 0 0 1000px rgba(210, 155, 82, 0.14) inset,
+        0 0 0 1px rgba(210, 155, 82, 0.22) inset !important;
+}
+
+.admin-login-form input:autofill:focus,
+.admin-login-form input:-webkit-autofill:focus {
+    border-color: var(--accent-color) !important;
+    box-shadow:
+        0 0 0 1000px rgba(210, 155, 82, 0.18) inset,
+        0 0 0 2px rgba(210, 155, 82, 0.2) !important;
+}
+
+.admin-login-submit {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 4px;
+    padding: 14px 22px;
+
+    font-size: 1.05rem;
+    font-weight: 700;
+
+    cursor: pointer;
+    border: 1px solid var(--accent-color);
+    border-radius: 14px;
+
+    background: var(--accent-color);
+    color: #080605;
+
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.admin-login-submit:hover {
+    filter: brightness(1.05);
+}
+
+.admin-login-submit:active {
+    transform: scale(0.98);
+}
+
+@media (min-width: 640px) {
+    .admin-login-page-inner {
+        padding-bottom: 56px;
+    }
+
+    .admin-login {
+        max-width: 420px;
+        padding: 44px 40px 40px;
+
+        border-radius: 20px;
+    }
+
+    .admin-login h1 {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .admin-login-form {
+        gap: 16px;
+    }
+
+    .admin-login-form input {
+        min-height: 46px;
+        padding: 13px 16px;
+    }
+
+    .admin-login-submit {
+        width: auto;
+        min-width: 160px;
+        margin-top: 8px;
+        justify-self: center;
+
+        padding: 13px 32px;
+        border-radius: 999px;
+    }
 }
 
 .featured-slider {
@@ -452,17 +687,20 @@ button {
     border: 1px solid var(--accent-color);
     color: var(--accent-color);
 
-    padding: 14px;
-    border-radius: 12px;
+    padding: 16px 18px;
+    border-radius: 28px;
     font-size: 18px;
     font-weight: 600;
 
     cursor: pointer;
-    transition: 0.3s;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
+
+    box-shadow: var(--glow-accent-1), var(--glow-accent-2), var(--glow-accent-3);
 }
 
 .category-toggle.open {
     background: #080605;
+    box-shadow: var(--glow-accent-hover-1), var(--glow-accent-hover-2), var(--glow-accent-hover-3);
 }
 
 .category-toggle::after {
@@ -478,6 +716,7 @@ button {
 
 .category-toggle:hover {
     background: #120e0c;
+    box-shadow: var(--glow-accent-hover-1), var(--glow-accent-hover-2), var(--glow-accent-hover-3);
 }
 
 .menu-category {
@@ -505,7 +744,7 @@ button {
     background: #080605;
     border: 1px solid var(--accent-color);
 
-    border-radius: 12px;
+    border-radius: 26px;
     overflow: hidden;
 
     margin-bottom: 14px;
@@ -513,7 +752,9 @@ button {
     display: flex;
     flex-direction: column;
 
-    transition: 0.25s;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+    box-shadow: var(--glow-accent-1), var(--glow-accent-2), var(--glow-accent-3);
 }
 
 .menu-item:hover {
@@ -554,7 +795,7 @@ button {
 
     border: 1px solid var(--accent-color);
     /* 🔥 FULL OUTLINE */
-    border-radius: 8px;
+    border-radius: 20px;
     /* optional smooth look */
 
     display: block;
@@ -565,11 +806,24 @@ button {
     border: 1px solid var(--accent-color);
     color: var(--accent-color);
 
-    padding: 10px;
-    border-radius: 10px;
+    padding: 14px 18px;
+    border-radius: 24px;
     cursor: pointer;
 
     margin-bottom: 8px;
+
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
+
+    box-shadow: var(--glow-accent-1), var(--glow-accent-2), var(--glow-accent-3);
+}
+
+.menu-subcategory h4:hover {
+    background: #120e0c;
+    box-shadow: var(--glow-accent-hover-1), var(--glow-accent-hover-2), var(--glow-accent-hover-3);
+}
+
+.menu-subcategory.open h4 {
+    box-shadow: var(--glow-accent-hover-1), var(--glow-accent-hover-2), var(--glow-accent-hover-3);
 }
 
 .menu-subcategory h4::after {
@@ -680,18 +934,10 @@ select {
         opacity: 1;
     }
 
-    .nav-links a {
-        font-size: 20px;
-        font-weight: 500;
-        letter-spacing: 1px;
-    }
-
-    .nav-links a::after {
-        transition: width 0.3s;
-    }
-
-    .nav-links a.no-anim::after {
-        transition: none;
+    .nav-links a:not(.lang-btn) {
+        font-size: clamp(19px, 4.8vw, 24px);
+        font-weight: 700;
+        letter-spacing: 0.04em;
     }
 
     .hamburger {
@@ -733,8 +979,8 @@ select {
         display: none;
     }
 
-    .nav-links a {
-        font-weight: 600;
+    .nav-links a:not(.lang-btn) {
+        font-weight: 700;
     }
 }
 
@@ -1009,12 +1255,68 @@ html {
     margin: 0;
 }
 
-.footer-description {
+.footer-hours {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.footer-hours-title {
+    margin: 0 0 14px;
+
+    color: var(--accent-color);
+    font-size: clamp(18px, 2.5vw, 25px);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    justify-content: center;
+}
+
+.footer-hours-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-hours-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+
+    text-align: center;
+}
+
+.footer-hours-range {
     margin: 0;
 
-    font-size: clamp(20px, 4.2vw, 34px);
-    line-height: 1.38;
-    color: #d8d0c3;
+    font-family: var(--font-display);
+    font-size: clamp(15px, 3.2vw, 21px);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.06em;
+    color: var(--accent-color);
+}
+
+.footer-hours-slot {
+    margin: 0;
+
+    font-size: clamp(16px, 3.4vw, 23px);
+    line-height: 1.2;
+    white-space: nowrap;
+    color: rgba(243, 234, 216, 0.95);
 }
 
 @media (min-width: 720px) {
@@ -1027,11 +1329,16 @@ html {
         gap: 14px 22px;
     }
 
-    .footer-intro .footer-description {
+    .footer-intro .footer-hours {
         flex: 1;
         min-width: 0;
 
-        text-align: left;
+        margin: 0;
+        max-width: none;
+    }
+
+    .footer-hours-title {
+        justify-content: center;
     }
 }
 
@@ -1084,13 +1391,6 @@ html {
     color: #d8d0c3;
 }
 
-.footer-contact-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.45em;
-}
-
 .footer-inline-icon {
     width: 1.05em;
     height: 1.05em;
@@ -1106,21 +1406,6 @@ html {
 }
 
 .footer-phone-link:hover {
-    text-decoration: underline;
-}
-
-.footer-handle {
-    color: rgba(216, 208, 195, 0.85);
-    font-size: clamp(16px, 3.4vw, 26px);
-}
-
-.footer-handle-link {
-    color: inherit;
-    text-decoration: none;
-}
-
-.footer-handle-link:hover {
-    color: var(--accent-color);
     text-decoration: underline;
 }
 
@@ -1145,6 +1430,7 @@ html {
     border: 1px solid var(--accent-color);
     border-radius: 999px;
 
+    font-family: var(--font-display);
     font-size: clamp(18px, 4vw, 26px);
     font-weight: 600;
     text-decoration: none;
@@ -1266,6 +1552,58 @@ html {
     color: white;
 }
 
+.admin-lang-switch {
+    min-width: 44px;
+    padding: 8px 14px;
+    text-align: center;
+    font-weight: 700;
+
+    color: #080605;
+    background: rgba(210, 155, 82, 0.32);
+    border: 1px solid rgba(210, 155, 82, 0.45);
+}
+
+.admin-lang-switch:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.admin-lang-switch-active {
+    background: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 2px rgba(210, 155, 82, 0.25);
+}
+
+/* Admin page title under the same navbar as the public site */
+.admin-panel-intro {
+    margin: 0 auto 28px;
+    max-width: 720px;
+
+    text-align: center;
+}
+
+.admin-panel-intro-kicker {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--accent-color);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+}
+
+.admin-panel-intro-title {
+    margin: 0;
+
+    font-family: var(--font-display);
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: #f3ead8;
+}
+
 /* Gives the admin content clean spacing under the header */
 .admin-panel {
     max-width: 1100px;
@@ -1324,8 +1662,6 @@ html {
         justify-content: center;
         flex-wrap: wrap;
     }
-<<<<<<< HEAD
-=======
 }
 
 .hero .hero-main-logo {
@@ -1424,7 +1760,7 @@ body.admin-page::before {
 
 .admin-nav-link:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 22px rgba(210, 155, 82, 0.25);
+    box-shadow: 0 0 14px rgba(210, 155, 82, 0.12);
 }
 
 .admin-nav-link.danger {
@@ -1514,7 +1850,7 @@ body.admin-page::before {
 .admin-page .admin-panel input:focus,
 .admin-page .admin-panel select:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(210, 155, 82, 0.14);
+    box-shadow: 0 0 0 2px rgba(210, 155, 82, 0.08);
 }
 
 .admin-page .admin-panel select option {
@@ -1563,7 +1899,7 @@ body.admin-page::before {
 
 .admin-page .admin-panel form button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 26px rgba(210, 155, 82, 0.25);
+    box-shadow: 0 0 16px rgba(210, 155, 82, 0.12);
 }
 
 /* Current menu cards */
@@ -1680,6 +2016,13 @@ body.admin-page .admin-panel {
     max-width: 1180px !important;
     margin: 0 auto !important;
     padding: 42px 24px 90px !important;
+    padding-top: calc(70px + 28px) !important;
+}
+
+@media (min-width: 769px) {
+    body.admin-page .admin-panel {
+        padding-top: calc(88px + 24px) !important;
+    }
 }
 
 body.admin-page .admin-panel > section {
@@ -1753,9 +2096,4 @@ body.admin-page .admin-item {
     background: rgba(8, 6, 5, 0.8) !important;
     border: 1px solid rgba(210, 155, 82, 0.2) !important;
     border-radius: 18px !important;
-}
-
-.admin-panel input {
-    background: red !important;
->>>>>>> 676709c (Admin panel fix)
 }
