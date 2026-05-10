@@ -33,32 +33,32 @@ ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "bliss123")
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 def delete_uploaded_image(image_path):
     if not image_path:
-        return 
-    
+        return
+
     image_path = image_path.replace("\\", "/").strip()
 
     # Only delete files from static/uploads
     if not image_path.startswith("uploads/"):
         return
-    
+
     filename = os.path.basename(image_path)
 
     uploads_dir = os.path.abspath(
         os.path.join(app.root_path, app.config["UPLOAD_FOLDER"])
     )
 
-    full_path = os.path.abspath(
-        os.path.join(uploads_dir, filename)
-    )
+    full_path = os.path.abspath(os.path.join(uploads_dir, filename))
 
-    #Saftey check to prevent deleting files outside of uploads
+    # Saftey check to prevent deleting files outside of uploads
     if not full_path.startswith(uploads_dir):
         return
-    
+
     if os.path.exists(full_path):
         os.remove(full_path)
+
 
 def generate_id(text="item"):
     safe_text = text.lower().strip().replace(" ", "_")
@@ -947,6 +947,7 @@ def update_item(item_id):
         }
     )
 
+
 @app.route("/api/items/<item_id>/image", methods=["DELETE"])
 @api_login_required
 def delete_item_image(item_id):
@@ -960,7 +961,7 @@ def delete_item_image(item_id):
     if not existing_item:
         conn.close()
         return jsonify({"error": "Item not found."}), 404
-    
+
     old_image = existing_item["image"]
 
     conn.execute(
@@ -970,10 +971,10 @@ def delete_item_image(item_id):
 
     conn.commit()
     conn.close()
-    
+
     delete_uploaded_image(old_image)
     return jsonify({"message": "Item image deleted."})
-        
+
 
 @app.route("/api/items/<item_id>", methods=["DELETE"])
 @api_login_required
@@ -988,8 +989,8 @@ def delete_item(item_id):
     if not existing_item:
         conn.close()
         return jsonify({"error": "Item not found."}), 404
-    
-    old image = existing_item["image"]
+
+    old_image = existing_item["image"]
 
     cursor = conn.execute(
         "DELETE FROM items WHERE id = ?",
@@ -1002,7 +1003,7 @@ def delete_item(item_id):
 
     if deleted == 0:
         return jsonify({"error": "Item not found."}), 404
-    
+
     delete_uploaded_image(old_image)
 
     return jsonify({"message": "Item deleted."})

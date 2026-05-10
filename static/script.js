@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const langBtn = document.querySelector(".nav-top .lang-btn");
 
-if (langBtn) {
-    langBtn.addEventListener("click", function () {
-        this.classList.add("active");
-    });
-}
+    if (langBtn) {
+        langBtn.addEventListener("click", function () {
+            this.classList.add("active");
+        });
+    }
 
     const categoryButtons = document.querySelectorAll(".category-toggle");
 
@@ -68,74 +68,108 @@ if (langBtn) {
     });
 
     // 🔥 HAMBURGER MENU
-const hamburger = document.querySelector(".hamburger");
-const navbar = document.querySelector(".navbar");
-const navLinks = document.querySelectorAll(".nav-links a");
+    const hamburger = document.querySelector(".hamburger");
+    const navbar = document.querySelector(".navbar");
+    const navLinks = document.querySelectorAll(".nav-links a");
 
-// RESET STATE ON LOAD
-if (navbar) navbar.classList.remove("open");
-if (hamburger) hamburger.classList.remove("open");
-navLinks.forEach(l => l.classList.remove("active"));
+    // RESET STATE ON LOAD
+    if (navbar) navbar.classList.remove("open");
+    if (hamburger) hamburger.classList.remove("open");
+    navLinks.forEach(l => l.classList.remove("active"));
 
-// TOGGLE MENU
-if (hamburger && navbar) {
-    hamburger.addEventListener("click", function () {
-        navbar.classList.toggle("open");
-        hamburger.classList.toggle("open");
+    // TOGGLE MENU
+    if (hamburger && navbar) {
+        hamburger.addEventListener("click", function () {
+            navbar.classList.toggle("open");
+            hamburger.classList.toggle("open");
+        });
+    }
+
+    // NAV LINK CLICK LOGIC
+    navLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            const href = this.getAttribute("href");
+
+            // remove underline instantly (no animation flash)
+            navLinks.forEach(l => {
+                l.classList.add("no-anim");
+                l.classList.remove("active");
+            });
+
+            // force reflow so transition reset applies immediately
+            void document.body.offsetWidth;
+
+            navLinks.forEach(l => l.classList.remove("no-anim"));
+
+            // CLOSE MOBILE MENU
+            if (navbar.classList.contains("open")) {
+                navbar.classList.remove("open");
+                hamburger.classList.remove("open");
+            }
+
+            // only keep active for real pages (optional — you can remove this entirely)
+            if (!href.startsWith("#")) {
+            }
+        });
     });
+
+    // DELETE SUBCATEGORY
+    document.querySelectorAll(".delete-subcategory").forEach(button => {
+        button.addEventListener("click", async () => {
+            const id = button.dataset.subcategoryId;
+
+            if (!confirm("Delete this subcategory?")) return;
+
+            const res = await fetch(`/api/subcategories/${id}`, {
+                method: "DELETE"
+            });
+
+            if (res.ok) location.reload();
+        });
+    });
+
+    // SUBCATEGORY TOGGLE
+    const subcategoryHeaders = document.querySelectorAll(".menu-subcategory h4");
+
+    subcategoryHeaders.forEach(header => {
+        header.addEventListener("click", function () {
+            const parent = this.parentElement;
+            parent.classList.toggle("open");
+        });
+    });
+
+});
+
+// FEATURED AUTO SLIDER
+const featuredSlides = document.querySelectorAll(".featured-slide");
+const featuredDots = document.querySelectorAll(".featured-dot");
+let currentFeaturedSlide = 0;
+
+function showFeaturedSlide(index) {
+    if (!featuredSlides.length) return;
+
+    featuredSlides.forEach(slide => slide.classList.remove("active"));
+    featuredDots.forEach(dot => dot.classList.remove("active"));
+
+    featuredSlides[index].classList.add("active");
+
+    if (featuredDots[index]) {
+        featuredDots[index].classList.add("active");
+    }
+
+    currentFeaturedSlide = index;
 }
 
-// NAV LINK CLICK LOGIC
-navLinks.forEach(link => {
-    link.addEventListener("click", function () {
-        const href = this.getAttribute("href");
+if (featuredSlides.length) {
+    setInterval(() => {
+        const nextSlide = (currentFeaturedSlide + 1) % featuredSlides.length;
+        showFeaturedSlide(nextSlide);
+    }, 5000);
+}
 
-        // remove underline instantly (no animation flash)
-        navLinks.forEach(l => {
-            l.classList.add("no-anim");
-            l.classList.remove("active");
-        });
-
-        // force reflow so transition reset applies immediately
-        void document.body.offsetWidth;
-
-        navLinks.forEach(l => l.classList.remove("no-anim"));
-
-        // CLOSE MOBILE MENU
-        if (navbar.classList.contains("open")) {
-            navbar.classList.remove("open");
-            hamburger.classList.remove("open");
-        }
-
-        // only keep active for real pages (optional — you can remove this entirely)
-        if (!href.startsWith("#")) {
-        }
+featuredDots.forEach(dot => {
+    dot.addEventListener("click", function () {
+        const index = Number(this.dataset.slide);
+        showFeaturedSlide(index);
     });
-});
-
-// DELETE SUBCATEGORY
-document.querySelectorAll(".delete-subcategory").forEach(button => {
-    button.addEventListener("click", async () => {
-        const id = button.dataset.subcategoryId;
-
-        if (!confirm("Delete this subcategory?")) return;
-
-        const res = await fetch(`/api/subcategories/${id}`, {
-            method: "DELETE"
-        });
-
-        if (res.ok) location.reload();
-    });
-});
-
-// SUBCATEGORY TOGGLE
-const subcategoryHeaders = document.querySelectorAll(".menu-subcategory h4");
-
-subcategoryHeaders.forEach(header => {
-    header.addEventListener("click", function () {
-        const parent = this.parentElement;
-        parent.classList.toggle("open");
-    });
-});
-
 });
