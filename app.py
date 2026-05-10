@@ -263,7 +263,7 @@ def load_data():
 
     conn = get_db()
 
-    categories = conn.execute("SELECT * FROM categories ORDER BY rowid").fetchall()
+    categories = conn.execute("SELECT * FROM categories ORDER BY name_en COLLATE NOCASE").fetchall()
 
     data = {"categories": []}
 
@@ -282,7 +282,7 @@ def load_data():
             FROM items
             WHERE category_id = ?
             AND subcategory_id IS NULL
-            ORDER BY rowid
+            ORDER BY name_en COLLATE NOCASE
             """,
             (category["id"],),
         ).fetchall()
@@ -294,7 +294,7 @@ def load_data():
             SELECT *
             FROM subcategories
             WHERE category_id = ?
-            ORDER BY rowid
+            ORDER BY name_en COLLATE NOCASE
             """,
             (category["id"],),
         ).fetchall()
@@ -312,7 +312,7 @@ def load_data():
                 SELECT *
                 FROM items
                 WHERE subcategory_id = ?
-                ORDER BY rowid
+                ORDER BY name_en COLLATE NOCASE
                 """,
                 (subcategory["id"],),
             ).fetchall()
