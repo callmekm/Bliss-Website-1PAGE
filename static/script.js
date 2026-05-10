@@ -138,6 +138,48 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    /* Visit Us → fit footer main block (logo → Instagram) in the viewport when possible */
+    function scrollVisitUsFooterIntoView() {
+        const footer = document.querySelector(".site-footer");
+        const topEl = footer && footer.querySelector(".footer-intro");
+        const bottomEl = footer && footer.querySelector(".footer-social");
+        if (!topEl || !bottomEl) return;
+
+        const scrollPadding =
+            parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 90;
+        const bottomGap = 16;
+
+        const topY = topEl.getBoundingClientRect().top + window.scrollY;
+        const bottomY = bottomEl.getBoundingClientRect().bottom + window.scrollY;
+        const blockHeight = bottomY - topY;
+
+        const available = window.innerHeight - scrollPadding - bottomGap;
+
+        let scrollY;
+        if (blockHeight <= available) {
+            scrollY = topY - scrollPadding - (available - blockHeight) / 2;
+        } else {
+            scrollY = topY - scrollPadding;
+        }
+
+        const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        /* ~1mm extra downward nudge (typical CSS px) */
+        const scrollNudgePx = 4;
+        scrollY = Math.max(0, Math.min(scrollY + scrollNudgePx, maxScroll));
+
+        window.scrollTo({
+            top: scrollY,
+            behavior: "smooth",
+        });
+    }
+
+    document.querySelectorAll('a[href="#footer"]').forEach(function (link) {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            scrollVisitUsFooterIntoView();
+        });
+    });
+
 });
 
 // FEATURED AUTO SLIDER
