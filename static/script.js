@@ -1,3 +1,11 @@
+function adminUi(key, fallback) {
+    var pack = typeof window !== "undefined" ? window.__ADMIN_UI_I18N : null;
+    if (pack && typeof pack[key] === "string") {
+        return pack[key];
+    }
+    return fallback;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const langBtn = document.querySelector(".nav-top .lang-btn");
 
@@ -21,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteCategoryButtons.forEach(function (button) {
         button.addEventListener("click", async function () {
             const categoryId = button.dataset.categoryId;
-            if (!categoryId || !confirm("Delete this category and all its items?")) {
+            if (!categoryId || !confirm(adminUi("confirmDeleteCategory", "Delete this category and all its items?"))) {
                 return;
             }
 
@@ -33,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 window.location.reload();
             } else {
-                alert("Unable to delete category. Please try again.");
+                alert(adminUi("alertDeleteCategoryFailed", "Unable to delete category. Please try again."));
             }
         });
     });
@@ -42,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteItemButtons.forEach(function (button) {
         button.addEventListener("click", async function () {
             const itemId = button.dataset.itemId;
-            if (!itemId || !confirm("Delete this item?")) {
+            if (!itemId || !confirm(adminUi("confirmDeleteItem", "Delete this item?"))) {
                 return;
             }
 
@@ -54,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 window.location.reload();
             } else {
-                alert("Unable to delete item. Please try again.");
+                alert(adminUi("alertDeleteItemFailed", "Unable to delete item. Please try again."));
             }
         });
     });
@@ -70,28 +78,36 @@ editItemButtons.forEach(function (button) {
         });
 
         if (!response.ok) {
-            alert("Could not load item.");
+            alert(adminUi("alertLoadItemFailed", "Could not load item."));
             return;
         }
 
         const item = await response.json();
 
-        const nameEn = prompt("English name:", item.name_en);
+        const nameEn = prompt(adminUi("promptEnglishName", "English name:"), item.name_en);
         if (nameEn === null) return;
 
-        const nameMk = prompt("Macedonian name:", item.name_mk);
+        const nameMk = prompt(adminUi("promptMacedonianName", "Macedonian name:"), item.name_mk);
         if (nameMk === null) return;
 
-        const descriptionEn = prompt("English description:", item.description_en || "");
+        const descriptionEn = prompt(adminUi("promptEnglishDescription", "English description:"), item.description_en || "");
         if (descriptionEn === null) return;
 
-        const descriptionMk = prompt("Macedonian description:", item.description_mk || "");
+        const descriptionMk = prompt(
+            adminUi("promptMacedonianDescription", "Macedonian description:"),
+            item.description_mk || ""
+        );
         if (descriptionMk === null) return;
 
-        const price = prompt("Price:", item.price || "");
+        const price = prompt(adminUi("promptPrice", "Price:"), item.price || "");
         if (price === null) return;
 
-        const featured = confirm("Should this item be featured? Press OK for yes, Cancel for no.");
+        const featured = confirm(
+            adminUi(
+                "confirmFeaturedItem",
+                "Should this item be featured? Press OK for yes, Cancel for no."
+            )
+        );
 
         const updateResponse = await fetch(`/api/items/${itemId}`, {
             method: "PUT",
@@ -112,7 +128,7 @@ editItemButtons.forEach(function (button) {
         if (updateResponse.ok) {
             window.location.reload();
         } else {
-            alert("Could not update item.");
+            alert(adminUi("alertUpdateItemFailed", "Could not update item."));
         }
     });
 });
@@ -122,7 +138,7 @@ document.querySelectorAll(".delete-featured-item").forEach(button => {
     button.addEventListener("click", async () => {
         const id = button.dataset.featuredId;
 
-        if (!id || !confirm("Delete this featured item?")) {
+        if (!id || !confirm(adminUi("confirmDeleteFeaturedItem", "Delete this featured item?"))) {
             return;
         }
 
@@ -134,7 +150,7 @@ document.querySelectorAll(".delete-featured-item").forEach(button => {
         if (response.ok) {
             window.location.reload();
         } else {
-            alert("Unable to delete featured item.");
+            alert(adminUi("alertDeleteFeaturedFailed", "Unable to delete featured item."));
         }
     });
 });
@@ -195,7 +211,7 @@ document.querySelectorAll(".delete-featured-item").forEach(button => {
         button.addEventListener("click", async () => {
             const id = button.dataset.subcategoryId;
 
-            if (!confirm("Delete this subcategory?")) return;
+            if (!confirm(adminUi("confirmDeleteSubcategory", "Delete this subcategory?"))) return;
 
             const res = await fetch(`/api/subcategories/${id}`, {
                 method: "DELETE"
@@ -259,36 +275,52 @@ document.querySelectorAll(".delete-featured-item").forEach(button => {
 
 });
 
-// FEATURED AUTO SLIDER
+// FEATURED CAROUSEL — fade between slides, 5s autoplay, dot indicators
 const featuredSlides = document.querySelectorAll(".featured-slide");
 const featuredDots = document.querySelectorAll(".featured-dot");
 let currentFeaturedSlide = 0;
+let featuredAutoplayId = null;
 
 function showFeaturedSlide(index) {
     if (!featuredSlides.length) return;
 
-    featuredSlides.forEach(slide => slide.classList.remove("active"));
-    featuredDots.forEach(dot => dot.classList.remove("active"));
+    const n = featuredSlides.length;
+    const i = ((index % n) + n) % n;
 
-    featuredSlides[index].classList.add("active");
+    featuredSlides.forEach(function (slide, idx) {
+        const on = idx === i;
+        slide.classList.toggle("active", on);
+        slide.setAttribute("aria-hidden", on ? "false" : "true");
+    });
 
-    if (featuredDots[index]) {
-        featuredDots[index].classList.add("active");
-    }
+    featuredDots.forEach(function (dot, idx) {
+        const on = idx === i;
+        dot.classList.toggle("active", on);
+        dot.setAttribute("aria-selected", on ? "true" : "false");
+    });
 
-    currentFeaturedSlide = index;
+    currentFeaturedSlide = i;
 }
 
-if (featuredSlides.length) {
-    setInterval(() => {
-        const nextSlide = (currentFeaturedSlide + 1) % featuredSlides.length;
-        showFeaturedSlide(nextSlide);
+function startFeaturedAutoplay() {
+    if (featuredAutoplayId !== null) {
+        clearInterval(featuredAutoplayId);
+        featuredAutoplayId = null;
+    }
+    if (featuredSlides.length <= 1) return;
+
+    featuredAutoplayId = window.setInterval(function () {
+        showFeaturedSlide(currentFeaturedSlide + 1);
     }, 5000);
 }
 
-featuredDots.forEach(dot => {
+startFeaturedAutoplay();
+
+featuredDots.forEach(function (dot) {
     dot.addEventListener("click", function () {
-        const index = Number(this.dataset.slide);
+        const index = Number(dot.dataset.slide);
+        if (Number.isNaN(index)) return;
         showFeaturedSlide(index);
+        startFeaturedAutoplay();
     });
 });

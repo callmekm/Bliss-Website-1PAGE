@@ -512,7 +512,7 @@ def logout():
 def admin():
     lang = get_language()
     data = load_data()
-    featured_items = load_featured_items("en")
+    featured_items = load_featured_items(lang)
 
     return render_template(
         "admin.html",

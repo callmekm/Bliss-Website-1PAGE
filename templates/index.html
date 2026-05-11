@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<body class="public-playfair">
 
     <header>
         <nav class="navbar">
@@ -95,42 +95,67 @@
     </section>
 
     <section id="featured" class="featured">
-    <h2>
-        {% if lang == "en" %}
-        Featured
-        {% else %}
-        Издвоено
-        {% endif %}
-    </h2>
+        <h2 class="section-heading">
+            {% if lang == "en" %}
+            Featured
+            {% else %}
+            Издвоено
+            {% endif %}
+        </h2>
 
-    <div class="featured-slider">
-        {% for item in featured_items %}
-        <div class="featured-card">
+        {% if featured_items %}
+        <div class="featured-carousel">
+            <div class="featured-slides">
+                {% for item in featured_items %}
+                <div class="featured-slide{% if loop.first %} active{% endif %}"
+                    id="featured-slide-{{ loop.index0 }}"
+                    aria-hidden="{% if loop.first %}false{% else %}true{% endif %}">
 
-            {% if item.image %}
-            <div class="featured-image">
-                <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.title }}">
+                    {% if item.image %}
+                    <div class="featured-story">
+                        <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.title }}"
+                            {% if loop.first %}loading="eager"{% else %}loading="lazy"{% endif %} decoding="async">
+                    </div>
+                    {% endif %}
+
+                    <div class="featured-copy">
+                        {% if item.label %}
+                        <p class="featured-label">{{ item.label }}</p>
+                        {% endif %}
+
+                        <div class="featured-card-title-row">
+                            <h3 class="featured-title">{{ item.title }}</h3>
+                            {% if item.price %}
+                            <strong class="featured-price">{{ item.price }}
+                                {% if lang == "en" %} MKD{% else %} ДЕН{% endif %}
+                            </strong>
+                            {% endif %}
+                        </div>
+
+                        {% if item.description %}
+                        <p class="featured-description">{{ item.description }}</p>
+                        {% endif %}
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if featured_items|length > 1 %}
+            <div class="featured-dots" role="tablist"
+                aria-label="{% if lang == 'en' %}Featured items{% else %}Издвоени ставки{% endif %}">
+                {% for item in featured_items %}
+                <button type="button" class="featured-dot{% if loop.first %} active{% endif %}"
+                    data-slide="{{ loop.index0 }}" role="tab"
+                    aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
+                    aria-controls="featured-slide-{{ loop.index0 }}"
+                    aria-label="{% if lang == 'en' %}Show featured item {{ loop.index }} of {{ featured_items|length }}{% else %}Прикажи ставка {{ loop.index }} од {{ featured_items|length }}{% endif %}"></button>
+                {% endfor %}
             </div>
             {% endif %}
-
-            {% if item.label %}
-            <p class="featured-label">{{ item.label }}</p>
-            {% endif %}
-
-            <h3>{{ item.title }}</h3>
-
-            {% if item.description %}
-            <p>{{ item.description }}</p>
-            {% endif %}
-
-            {% if item.price %}
-            <strong>{{ item.price }}</strong>
-            {% endif %}
-
         </div>
-        {% endfor %}
-    </div>
-</section>
+        {% endif %}
+    </section>
 
     <section id="menu" class="menu">
         <h2 class="section-heading">
@@ -228,19 +253,13 @@
             {% endif %}
         </h2>
         <div class="about-section-inner">
-            <div class="about-section-visual">
-                <img class="about-section-cover-img"
-                    src="{{ url_for('static', filename='images/about-bliss-interior.png') }}" {% if lang == "en" %}
-                    alt="Bliss Lounge Bar dining room with warm lighting and tropical leaf murals" {% else %}
-                    alt="Интерьер на Bliss Lounge Bar со топло осветлување и тропски ѕидни композиции" {% endif %}
-                    loading="lazy" decoding="async">
-            </div>
-            <div class="about-section-text">
+            <div class="about-text-copy">
                 {% if lang == "en" %}
                 <p>
-                    Bliss Lounge Bar is a cozy lounge in Strumica where fresh food, crafted cocktails, and good company
-                    come together. We care about quality ingredients, friendly service, and a relaxed atmosphere you can
-                    settle into—whether you are stopping by for a bite, drinks, or a longer evening out.
+                    <span class="about-accent">Bliss Lounge Bar</span> is a cozy lounge in Strumica where fresh food,
+                    crafted cocktails, and good company come together. We care about quality ingredients, friendly service,
+                    and a relaxed atmosphere you can settle into—whether you are stopping by for a bite, drinks, or a longer
+                    evening out.
                 </p>
                 <p>
                     From sharing plates with friends to marking something special, our team is here to make your visit
@@ -248,13 +267,13 @@
                 </p>
                 {% else %}
                 <p>
-                    Bliss Lounge Bar е опуштен лаунџ во Струмица каде се среќаваат свежата храна, внимателно подготвените
-                    коктели и доброто друштво. Ни е важно квалитетот на намирниците, услугата и пријатната атмосфера во која
-                    може да се задржите—било за оброк, пијалоци или подолго вечерње излегување.
+                    <span class="about-accent">Bliss Lounge Bar</span> е опуштен лаунџ во Струмица каде се среќаваат свежата
+                    храна, внимателно подготвените коктели и доброто друштво. Ни е важно квалитетот на намирниците, услугата и
+                    пријатната атмосфера во која може да се задржите—било за оброк, пијалоци или подолго вечерње излегување.
                 </p>
                 <p>
-                    Од дружење со пријатели до посебни моменти, тимот е тука за да ви помогне да се чувствувате пријатно и
-                    да уживате во посетата.
+                    Од дружење со пријатели до посебни моменти, тимот е тука за да ви помогне да се чувствувате пријатно и да
+                    уживате во посетата.
                 </p>
                 {% endif %}
             </div>

@@ -57,71 +57,81 @@
     </header>
 
     <main class="admin-panel">
+        <div class="admin-panel-intro">
+            <span class="admin-panel-intro-kicker">{% if lang == "en" %}Bliss Management{% else %}Bliss менаџмент{% endif %}</span>
+            <h1 class="admin-panel-intro-title">{% if lang == "en" %}Admin Panel{% else %}Админ панел{% endif %}</h1>
+        </div>
+
         <section>
-            <h2>Add Featured Item</h2>
+            <h2>{% if lang == "en" %}Add Featured Item{% else %}Додај издвоена ставка{% endif %}</h2>
 
-    <form action="/api/featured-items" method="POST" enctype="multipart/form-data">
-        <input name="label_en" placeholder="Label EN, example: Cocktails">
-        <input name="label_mk" placeholder="Label MK">
+            <form action="/api/featured-items" method="POST" enctype="multipart/form-data">
+                <input name="label_en"
+                    placeholder="{% if lang == 'en' %}Label EN, example: Cocktails{% else %}Етикета EN, пр.: Cocktails{% endif %}">
+                <input name="label_mk"
+                    placeholder="{% if lang == 'en' %}Label MK{% else %}Етикета MK{% endif %}">
 
-        <input name="title_en" placeholder="Featured title EN" required>
-        <input name="title_mk" placeholder="Featured title MK" required>
+                <input name="title_en"
+                    placeholder="{% if lang == 'en' %}Featured title EN{% else %}Наслов на издвоена ставка EN{% endif %}"
+                    required>
+                <input name="title_mk"
+                    placeholder="{% if lang == 'en' %}Featured title MK{% else %}Наслов на издвоена ставка MK{% endif %}"
+                    required>
 
-        <input name="description_en" placeholder="Description EN">
-        <input name="description_mk" placeholder="Description MK">
+                <input name="description_en"
+                    placeholder="{% if lang == 'en' %}Description EN{% else %}Опис EN{% endif %}">
+                <input name="description_mk"
+                    placeholder="{% if lang == 'en' %}Description MK{% else %}Опис MK{% endif %}">
 
-        <input name="price" placeholder="Price, optional">
+                <input name="price"
+                    placeholder="{% if lang == 'en' %}Price, optional{% else %}Цена (не задолжително){% endif %}">
 
-        <input type="file" name="image_file" accept="image/*">
+                <input type="file" name="image_file" accept="image/*">
 
-        <input type="number" name="sort_order" placeholder="Order number" value="0">
+                <input type="number" name="sort_order"
+                    placeholder="{% if lang == 'en' %}Order number{% else %}Редослед (број){% endif %}" value="0">
 
-        <label>
-            <input type="checkbox" name="active" checked>
-            Active
-        </label>
+                <label>
+                    <input type="checkbox" name="active" checked>
+                    {% if lang == "en" %}Active{% else %}Активно{% endif %}
+                </label>
 
-        <button type="submit">Add Featured Item</button>
-    </form>
-</section>
+                <button type="submit">{% if lang == "en" %}Add Featured Item{% else %}Додај издвоена ставка{% endif %}</button>
+            </form>
+        </section>
 
-<section>
-    <h2>Current Featured Items</h2>
+        <section>
+            <h2>{% if lang == "en" %}Current Featured Items{% else %}Тековни издвоени ставки{% endif %}</h2>
 
-    {% for featured in featured_items %}
-    <div class="admin-item">
+            {% for featured in featured_items %}
+            <div class="admin-item">
 
-        <div class="admin-item-main">
-            {% if featured.image %}
-            <img class="admin-item-image"
-                 src="{{ url_for('static', filename=featured.image) }}"
-                 alt="{{ featured.title_en }}">
-            {% endif %}
+                <div class="admin-item-main">
+                    {% if featured.image %}
+                    <img class="admin-item-image"
+                        src="{{ url_for('static', filename=featured.image) }}"
+                        alt="{{ featured.title }}">
+                    {% endif %}
 
-            <div>
-                <strong>{{ featured.title_en }}</strong>
-                <p>{{ featured.label_en }}</p>
-                <p>{{ featured.price }}</p>
+                    <div>
+                        <strong>{{ featured.title }}</strong>
+                        {% if featured.label %}<p>{{ featured.label }}</p>{% endif %}
+                        {% if featured.price %}<p>{{ featured.price }}</p>{% endif %}
+                    </div>
+                </div>
+
+                <div class="admin-item-actions">
+                    <button class="small danger delete-featured-item"
+                        data-featured-id="{{ featured.id }}">
+                        {% if lang == "en" %}Delete{% else %}Избриши{% endif %}
+                    </button>
+                </div>
+
             </div>
-        </div>
+            {% endfor %}
+        </section>
 
-        <div class="admin-item-actions">
-            <button class="small danger delete-featured-item"
-                    data-featured-id="{{ featured.id }}">
-                Delete
-            </button>
-        </div>
-
-    </div>
-    {% endfor %}
-</section>
-
-    <div class="admin-panel-intro">
-        <span class="admin-panel-intro-kicker">{% if lang == "en" %}Bliss Management{% else %}Bliss менаџмент{% endif %}</span>
-        <h1 class="admin-panel-intro-title">{% if lang == "en" %}Admin Panel{% else %}Админ панел{% endif %}</h1>
-    </div>
-
-    <!-- ================= CATEGORY ================= -->
+        <!-- ================= CATEGORY ================= -->
 
     <section>
         <h2>{% if lang == "en" %}Add Category{% else %}Додај категорија{% endif %}</h2>
@@ -248,7 +258,7 @@
                 <div class="admin-subcategory">
 
                     <div class="admin-subcategory-header">
-                        <h4>{{ sub.name_en }}</h4>
+                        <h4>{{ sub.name_en }} / {{ sub.name_mk }}</h4>
 
                         <button class="small danger delete-subcategory"
                                 data-subcategory-id="{{ sub.id }}">
@@ -289,6 +299,41 @@
 
     </main>
 
+    <script>
+        window.__ADMIN_UI_I18N = {% if lang == 'en' %}{
+            confirmDeleteCategory: "Delete this category and all its items?",
+            alertDeleteCategoryFailed: "Unable to delete category. Please try again.",
+            confirmDeleteItem: "Delete this item?",
+            alertDeleteItemFailed: "Unable to delete item. Please try again.",
+            alertLoadItemFailed: "Could not load item.",
+            promptEnglishName: "English name:",
+            promptMacedonianName: "Macedonian name:",
+            promptEnglishDescription: "English description:",
+            promptMacedonianDescription: "Macedonian description:",
+            promptPrice: "Price:",
+            confirmFeaturedItem: "Should this item be featured? Press OK for yes, Cancel for no.",
+            alertUpdateItemFailed: "Could not update item.",
+            confirmDeleteFeaturedItem: "Delete this featured item?",
+            alertDeleteFeaturedFailed: "Unable to delete featured item.",
+            confirmDeleteSubcategory: "Delete this subcategory?"
+        }{% else %}{
+            confirmDeleteCategory: "Да се избрише оваа категорија и сите ставки во неа?",
+            alertDeleteCategoryFailed: "Категоријата не може да се избрише. Обидете се повторно.",
+            confirmDeleteItem: "Да се избрише оваа ставка?",
+            alertDeleteItemFailed: "Ставката не може да се избрише. Обидете се повторно.",
+            alertLoadItemFailed: "Ставката не може да се вчита.",
+            promptEnglishName: "Име (англиски):",
+            promptMacedonianName: "Име (македонски):",
+            promptEnglishDescription: "Опис (англиски):",
+            promptMacedonianDescription: "Опис (македонски):",
+            promptPrice: "Цена:",
+            confirmFeaturedItem: "Да биде ставката издвоена? OK за да, Откажи за не.",
+            alertUpdateItemFailed: "Ставката не може да се ажурира.",
+            confirmDeleteFeaturedItem: "Да се избрише издвоената ставка?",
+            alertDeleteFeaturedFailed: "Издвоената ставка не може да се избрише.",
+            confirmDeleteSubcategory: "Да се избрише подкатегоријата?"
+        }{% endif %};
+    </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>

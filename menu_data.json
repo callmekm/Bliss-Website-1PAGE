@@ -1063,7 +1063,108 @@
             "id": "cocktails",
             "name_en": "COCKTAILS",
             "name_mk": "КОКТЕЛИ",
-            "items": [],
+            "items": [
+                {
+                    "id": "cocktail_margarita",
+                    "name_en": "Margarita",
+                    "name_mk": "Маргарита",
+                    "description_en": "Tequila, lime juice, triple sec.",
+                    "description_mk": "текила, сок од лимон, трипл сек",
+                    "price": "250",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_espresso_martini",
+                    "name_en": "Espresso Martini",
+                    "name_mk": "Еспресо Мартини",
+                    "description_en": "Vodka, Kahlua, espresso shot.",
+                    "description_mk": "водка, кахлуа, еспресо шот",
+                    "price": "260",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_amaretto_sour",
+                    "name_en": "Amaretto Sour",
+                    "name_mk": "Амарето Сауер",
+                    "description_en": "Amaretto, lime juice, syrup, apple juice.",
+                    "description_mk": "амарето, сок од лимета, сируп, сок од јаболко",
+                    "price": "250",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_gin_apple_sour",
+                    "name_en": "Gin Apple Sour",
+                    "name_mk": "Џин Епл Сауер",
+                    "description_en": "Gin, lime juice, syrup, apple puree, apple juice.",
+                    "description_mk": "џин, сок од лимета, сируп, пире од јаболко, сок од јаболко",
+                    "price": "250",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_raspberry_gin_fizz",
+                    "name_en": "Raspberry Gin Fizz",
+                    "name_mk": "Распбери Џин Физ",
+                    "description_en": "Gin, raspberry puree, lime juice, Sprite.",
+                    "description_mk": "џин, пире од малина, сок од лимета, спрајт",
+                    "price": "250",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_negroni",
+                    "name_en": "Negroni",
+                    "name_mk": "Негрони",
+                    "description_en": "Gin, Martini Rosso, Campari.",
+                    "description_mk": "џин, мартини росо, кампари",
+                    "price": "250",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_tom_collins",
+                    "name_en": "Tom Collins",
+                    "name_mk": "Том Колинс",
+                    "description_en": "Gin, sparkling water, lemon juice, simple syrup.",
+                    "description_mk": "џин, газирана вода, сок од лимон, сируп",
+                    "price": "200",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_manhattan",
+                    "name_en": "Manhattan",
+                    "name_mk": "Манхатан",
+                    "description_en": "Bourbon, Martini Rosso, Angostura.",
+                    "description_mk": "бурбон, мартини росо, ангостура",
+                    "price": "250",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_mojito",
+                    "name_en": "Mojito",
+                    "name_mk": "Мохито",
+                    "description_en": "White rum, sugar, lime juice, mint, fruit (strawberry/raspberry/mango/kiwi/apple/peach/coconut).",
+                    "description_mk": "бел рум, шеќер, сок од лимета, нане, пире (јагода, малина, манго, киви, јаболко, праска, кокос)",
+                    "price": "250",
+                    "image": "",
+                    "featured": false
+                },
+                {
+                    "id": "cocktail_apple_tini",
+                    "name_en": "Apple Tini",
+                    "name_mk": "Епл Тини",
+                    "description_en": "Vodka, apple puree, lime juice, triple sec.",
+                    "description_mk": "водка, пире од јаболко, сок од лимета, трипл сек",
+                    "price": "260",
+                    "image": "",
+                    "featured": false
+                }
+            ],
             "subcategories": []
         },
         {
@@ -1071,14 +1172,679 @@
             "name_en": "FOOD",
             "name_mk": "ХРАНА",
             "items": [],
-            "subcategories": []
+            "subcategories": [
+                {
+                    "id": "food_pizza",
+                    "name_en": "PIZZA",
+                    "name_mk": "ПИЦА",
+                    "items": [
+                        {
+                            "id": "food_pizza_veg_550g",
+                            "name_en": "Veg Pizza 550 g",
+                            "name_mk": "Веге пица 550 гр",
+                            "description_en": "Tomato sauce, cheese, tomatoes, green pepper, mushrooms, onion, corn.",
+                            "description_mk": "сос, кашкавал, домати, зелена пиперка, печурки, кромид, пченка",
+                            "price": "360",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_posna_550g",
+                            "name_en": "Fasting Pizza 550 g",
+                            "name_mk": "Посна пица 550 гр",
+                            "description_en": "Tomato sauce, vegan cheese, tomatoes, green pepper, mushrooms, onion, corn.",
+                            "description_mk": "сос, посен кашкавал, домати, зелена пиперка, печурки, кромид, пченка",
+                            "price": "320",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_toscana_540g",
+                            "name_en": "Toscana Pizza 540 g",
+                            "name_mk": "Тоскана 540 гр",
+                            "description_en": "Tomato sauce, cheese, ham, pepper, garlic, sour cream.",
+                            "description_mk": "сос, кашкавал, шунка, пиперка, лук, павлака",
+                            "price": "350",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_bomba_mex_560g",
+                            "name_en": "Bomba Mexicana Pizza 560 g",
+                            "name_mk": "Бомба Мексикана 560 гр",
+                            "description_en": "Tomato sauce, cheese, chili peppers, ham, kulen.",
+                            "description_mk": "сос, кашкавал, чили пиперчиња, шунка, кулен",
+                            "price": "350",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_salsiccia_630g",
+                            "name_en": "Salsiccia Pizza 630 g",
+                            "name_mk": "Салсичиа 630 гр",
+                            "description_en": "Tomato sauce, cheese, beef, spinach.",
+                            "description_mk": "сос, кашкавал, телешко месо, спанаќ",
+                            "price": "380",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_bacon_cheddar_560g",
+                            "name_en": "Bacon Cheddar Pizza 560 g",
+                            "name_mk": "Бекон Чедар 560 гр",
+                            "description_en": "Tomato sauce, cheese, cheddar, bacon, BBQ sauce.",
+                            "description_mk": "сос, кашкавал, чедар, сланина, барбекју сос",
+                            "price": "360",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_sofia_loren_570g",
+                            "name_en": "Sofia Loren Pizza 570 g",
+                            "name_mk": "Софија Лорен 570 гр",
+                            "description_en": "Tomato sauce, cheese, pork neck, mushrooms, sour cream.",
+                            "description_mk": "сос, кашкавал, врат, печурки, павлака",
+                            "price": "380",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_carbonara_570g",
+                            "name_en": "Carbonara Pizza 570 g",
+                            "name_mk": "Карбонара 570 гр",
+                            "description_en": "Sour cream, cheese, bacon, mushrooms, parmesan.",
+                            "description_mk": "павлака, кашкавал, сланина, печурки, пармезан",
+                            "price": "380",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_new_yorker_590g",
+                            "name_en": "New Yorker Pizza 590 g",
+                            "name_mk": "Њу Јоркер 590 гр",
+                            "description_en": "Tomato sauce, cheese, kulen, bacon, mushrooms.",
+                            "description_mk": "сос, кашкавал, кулен, сланина, печурки",
+                            "price": "400",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pizza_bliss_670g",
+                            "name_en": "Bliss Pizza 670 g",
+                            "name_mk": "Блисс пица 670 гр",
+                            "description_en": "Sour cream, cheese, kulen, gorgonzola, prosciutto, mushrooms, tomatoes.",
+                            "description_mk": "павлака, кашкавал, кулен, горгонзола, пршута, печурки, домати",
+                            "price": "450",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "food_pastrmajlija",
+                    "name_en": "PASTRMAJLIJA",
+                    "name_mk": "ПАСТРМАЈЛИЈА",
+                    "items": [
+                        {
+                            "id": "food_pastr_chicken_470g",
+                            "name_en": "Chicken Pastrmajlija 470 g",
+                            "name_mk": "Пилешка 470 гр",
+                            "description_en": "Chicken meat.",
+                            "description_mk": "пилешко месо",
+                            "price": "250",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pastr_chicken_complete_560g",
+                            "name_en": "Chicken Complete Pastrmajlija 560 g",
+                            "name_mk": "Пилешка комплет 560 гр",
+                            "description_en": "Chicken meat, cheese, mushrooms.",
+                            "description_mk": "пилешко месо, кашкавал, печурки",
+                            "price": "280",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pastr_pork_470g",
+                            "name_en": "Pork Pastrmajlija 470 g",
+                            "name_mk": "Свинска 470 гр",
+                            "description_en": "Pork meat.",
+                            "description_mk": "свинско месо",
+                            "price": "260",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pastr_pork_complete_560g",
+                            "name_en": "Pork Complete Pastrmajlija 560 g",
+                            "name_mk": "Свинска комплет 560 гр",
+                            "description_en": "Pork meat, cheese, mushrooms.",
+                            "description_mk": "свинско месо, кашкавал, печурки",
+                            "price": "290",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_pastr_bliss_610g",
+                            "name_en": "Bliss Pastrmajlija 610 g",
+                            "name_mk": "Блисс пастрмајлија 610 гр",
+                            "description_en": "Kaymak, pork, chicken, kulen, cheese, mushrooms.",
+                            "description_mk": "кајмак, свинско, пилешко, кулен, кашкавал, печурки",
+                            "price": "330",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "food_furnarinki",
+                    "name_en": "FURNARINKI",
+                    "name_mk": "ФУРНАРИНКИ",
+                    "items": [
+                        {
+                            "id": "food_furnarinki_300g",
+                            "name_en": "Furnarinki 300 g",
+                            "name_mk": "Фурнаринки 300 гр",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "90",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_furnarinki_cheese_420g",
+                            "name_en": "Furnarinki with Cheese 420 g",
+                            "name_mk": "Фурнаринки 420 гр",
+                            "description_en": "With cheese.",
+                            "description_mk": "со кашкавал",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_furnarinki_kaymak_450g",
+                            "name_en": "Furnarinki with Kaymak 450 g",
+                            "name_mk": "Фурнаринки 450 гр",
+                            "description_en": "With kaymak.",
+                            "description_mk": "со кајмак",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_furnarinki_kaymak_kulen_prsut_520g",
+                            "name_en": "Furnarinki with Kaymak, Kulen & Prosciutto 520 g",
+                            "name_mk": "Фурнаринки 520 гр",
+                            "description_en": "With kaymak, kulen, prosciutto.",
+                            "description_mk": "со кајмак, кулен, пршуто",
+                            "price": "220",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "food_burgers",
+                    "name_en": "BURGERS",
+                    "name_mk": "БУРГЕРИ",
+                    "items": [
+                        {
+                            "id": "food_burger_smash_classic_600g",
+                            "name_en": "Smash Burger Classic 600 g",
+                            "name_mk": "Смеш бургер Класик 600 гр",
+                            "description_en": "2x smash patties, cheddar, crispy bacon, caramelized onion, iceberg, burger sauce, bun, fries.",
+                            "description_mk": "2x смеш плескавици, чедар, крцкава сланина, карамелизиран кромид, ајсберг, бургер сос, лепче, помфрит",
+                            "price": "360",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_burger_smash_bliss_600g",
+                            "name_en": "Smash Burger Bliss 600 g",
+                            "name_mk": "Смеш бургер Блисс 600 гр",
+                            "description_en": "Smoked patty, parmesan, bacon, caramelized onion, arugula, homemade tartar mayo, bun, fries.",
+                            "description_mk": "пушена плескавица, пармезан, сланина, карамелизиран кромид, рукола, домашен тартар мајо, лепче, помфрит",
+                            "price": "330",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_burger_crispy_pulled_chicken_450g",
+                            "name_en": "Crispy Pulled Chicken 450 g",
+                            "name_mk": "Криспи Пулд Чикен 450 гр",
+                            "description_en": "Crispy pulled chicken patty, iceberg, tartar sauce, cheddar sauce, bun, fries.",
+                            "description_mk": "крцкава пулд чикен плескавица, ајсберг, тартар сос, чедар сос, лепче, помфрит",
+                            "price": "380",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "food_sandwiches",
+                    "name_en": "SANDWICHES",
+                    "name_mk": "СЕНДВИЧИ",
+                    "items": [
+                        {
+                            "id": "food_sand_fish_450g",
+                            "name_en": "Fish Sandwich 450 g",
+                            "name_mk": "Фиш сендвич 450 гр",
+                            "description_en": "Crispy fish, tartar sauce, salsa, arugula, bun, cajun fries.",
+                            "description_mk": "крцкава риба, тартар сос, салса, рукола, лепче, кајун помфрит",
+                            "price": "310",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_sand_chicken_450g",
+                            "name_en": "Chicken Sandwich 450 g",
+                            "name_mk": "Чикен Сендвич 450 гр",
+                            "description_en": "Crispy chicken, coleslaw, homemade chili mayo, salsa, bun, cajun fries.",
+                            "description_mk": "крцкаво пилешко, колсло, домашен чили мајо, салса, лепче, кајун помфрит",
+                            "price": "310",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_sand_pulled_pork_580g",
+                            "name_en": "Pulled Pork 580 g",
+                            "name_mk": "Пулд порк 580 гр",
+                            "description_en": "Pulled pork, coleslaw, guacamole, crispy onion, homemade chili mayo, pickles, bun, cajun fries.",
+                            "description_mk": "пулд порк, колсло, гуакамоле, крцкав кромид, домашен чили мајо, кисели краставички, лепче, кајун помфрит",
+                            "price": "360",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_sand_falafel_580g",
+                            "name_en": "Falafel Sandwich 580 g",
+                            "name_mk": "Фалафел сендвич 580 гр",
+                            "description_en": "Falafel (3 balls x 50 g), hummus, pickled red cabbage, marinated kale, salsa, tahini dressing, bun, fries, ketchup.",
+                            "description_mk": "фалафел (3 топчиња по 50 г), хумус, кисела црвена зелка, мариниран кељ, салса, тахини дресинг, лепче, помфрит, кечап",
+                            "price": "330",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_fries_ketchup_200g",
+                            "name_en": "Fries with Ketchup 200 g",
+                            "name_mk": "Помфрит со кечап 200 гр",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "120",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "food_addons",
+                    "name_en": "ADD-ONS",
+                    "name_mk": "ДОДАТОЦИ",
+                    "items": [
+                        {
+                            "id": "food_addon_patty",
+                            "name_en": "Patty",
+                            "name_mk": "плескавица",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "100",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_addon_parmesan",
+                            "name_en": "Parmesan",
+                            "name_mk": "пармезан",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "50",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_addon_cheddar",
+                            "name_en": "Cheddar",
+                            "name_mk": "чедар",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "40",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_addon_cheddar_sauce",
+                            "name_en": "Cheddar Sauce",
+                            "name_mk": "чедар сос",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "50",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_addon_sauce",
+                            "name_en": "Sauce",
+                            "name_mk": "сос",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "30",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_addon_cajun_fries",
+                            "name_en": "Cajun Fries",
+                            "name_mk": "кајун помфрит",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "40",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_addon_bacon",
+                            "name_en": "Bacon",
+                            "name_mk": "сланина",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "40",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_addon_crispy_pulled_chicken_patty",
+                            "name_en": "Crispy Pulled Chicken Patty",
+                            "name_mk": "крцкава пулд чикен плескавица",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "150",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "food_salads",
+                    "name_en": "SALADS",
+                    "name_mk": "САЛАТИ",
+                    "items": [
+                        {
+                            "id": "food_salad_pear_350g",
+                            "name_en": "Pear Salad 350 g",
+                            "name_mk": "Круша 350 гр",
+                            "description_en": "Arugula, iceberg, gorgonzola, pear, dried cranberries, walnuts, dressing.",
+                            "description_mk": "марула, ајсберг, горгонзола, круша, суви брусница, ореви, дресинг",
+                            "price": "320",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_salad_cesar_400g",
+                            "name_en": "Caesar 400 g",
+                            "name_mk": "Цезар 400 гр",
+                            "description_en": "Lettuce, iceberg, chicken sous vide, cheese, parmesan, homemade croutons, dressing.",
+                            "description_mk": "марула, ајсберг, пилешко \"sous vide\", шери, пармезан, домашни кубети, дресинг",
+                            "price": "320",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_salad_cesar_crispy_chicken_400g",
+                            "name_en": "Caesar with Crispy Chicken 400 g",
+                            "name_mk": "Цезар со крцкаво пилешко 400 гр",
+                            "description_en": "Lettuce, iceberg, crispy chicken, sheri, parmesan, dressing.",
+                            "description_mk": "марула, ајсберг, крцкаво пилешко, шери, пармезан, дресинг",
+                            "price": "330",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_salad_greek_400g",
+                            "name_en": "Greek Salad 400 g",
+                            "name_mk": "Грчка салата 400 гр",
+                            "description_en": "Cucumber, tomato, feta, olives, red onion, peppers, oregano.",
+                            "description_mk": "краставица, домат, фета, маслинки, црвен кромид, пипер, оригано",
+                            "price": "280",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_salad_tuna_350g",
+                            "name_en": "Tuna Salad 350 g",
+                            "name_mk": "Туна салата 350 гр",
+                            "description_en": "Lettuce, cucumber, red onion, tuna, olives, mix green salad.",
+                            "description_mk": "шери, краставица, црвен кромид, туна, маслинки, микс зелена салата",
+                            "price": "320",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_salad_beetroot_330g",
+                            "name_en": "Beetroot Salad 330 g",
+                            "name_mk": "Салата со цвекло 330 гр",
+                            "description_en": "Mixed greens, feta, green apple, beetroot, walnuts, dressing.",
+                            "description_mk": "микс зелена салата, фета, зелено јаболко, цвекло, ореви, дресинг",
+                            "price": "330",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_salad_creamy_pesto_320g",
+                            "name_en": "Creamy Pesto Salad with Tomatoes & Cheese 320 g",
+                            "name_mk": "Кремаста песто салата со домати и овчо сирење 320 гр",
+                            "description_en": "Tomato, sheep cheese, pesto dressing, sun-dried tomatoes, croutons.",
+                            "description_mk": "домат, овчо сирење, песто дресинг, сув домат, кубети",
+                            "price": "330",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "food_salad_bliss_350g",
+                            "name_en": "Bliss Salad 350 g",
+                            "name_mk": "Блисс салата 350 гр",
+                            "description_en": "Rocket, red cabbage, carrot, green apple, red onion, greens, dressing, walnuts, cranberries, pumpkin seeds.",
+                            "description_mk": "зелка, црвена зелка, морков, зелено јаболко, црвен кромид, марула, индијски ореви, сува брусница, калинка, дресинг",
+                            "price": "350",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                }
+            ]
         },
         {
             "id": "desserts",
             "name_en": "DESSERTS",
             "name_mk": "ДЕСЕРТИ",
             "items": [],
-            "subcategories": []
+            "subcategories": [
+                {
+                    "id": "desserts_desserts",
+                    "name_en": "DESSERTS",
+                    "name_mk": "ДЕСЕРТИ",
+                    "items": [
+                        {
+                            "id": "dess_tiramisu",
+                            "name_en": "Tiramisu",
+                            "name_mk": "Тирамису",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "dess_tiramisu_strawberry",
+                            "name_en": "Strawberry Tiramisu",
+                            "name_mk": "Тирамису Јагода",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "dess_donut_chocolate",
+                            "name_en": "Chocolate Donut",
+                            "name_mk": "Крофна Чоколадо",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "40",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "dess_donut_vanilla",
+                            "name_en": "Vanilla Donut",
+                            "name_mk": "Крофна Ванила",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "40",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "dess_ice_cream",
+                            "name_en": "Ice Cream",
+                            "name_mk": "Сладолед",
+                            "description_en": "",
+                            "description_mk": "",
+                            "price": "50",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                },
+                {
+                    "id": "desserts_pancakes",
+                    "name_en": "PANCAKES",
+                    "name_mk": "ПАЛАЧИНКИ",
+                    "items": [
+                        {
+                            "id": "pancake_nutella_banana",
+                            "name_en": "Nutella Banana",
+                            "name_mk": "Нутела банана",
+                            "description_en": "Pancake, Nutella, Plazma, banana.",
+                            "description_mk": "палачинка, нутела, плазма, банана",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_kinder_bueno",
+                            "name_en": "Kinder Bueno",
+                            "name_mk": "Киндер Буено",
+                            "description_en": "Pancake, Kinder Bueno cream, Bliss cream, Plazma, Kinder Bueno.",
+                            "description_mk": "палачинка, киндер буено крем, Блисс крем, плазма, киндер буено",
+                            "price": "220",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_sour_cherry",
+                            "name_en": "Sour Cherry",
+                            "name_mk": "Вишна",
+                            "description_en": "Pancake, chocolate, chopped sour-cherry jam, maraschino cherry, almond flakes.",
+                            "description_mk": "палачинка, чанада, џем со сечкана вишна, марачино черри, бадем лист",
+                            "price": "220",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_pistachio",
+                            "name_en": "Pistachio",
+                            "name_mk": "Ф`стк",
+                            "description_en": "Pancake, pistachio cream, white cream, Bliss cream, chopped pistachio, strawberry.",
+                            "description_mk": "палачинка, крем од ф`стк, бел крем, Блисс крем, сечкан ф`стк, јагода",
+                            "price": "280",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_rafaello",
+                            "name_en": "Rafaello",
+                            "name_mk": "Рафаело",
+                            "description_en": "Pancake, Rafaello cream, white cream, ground coconut, hazelnut.",
+                            "description_mk": "палачинка, рафаело крем, бел крем, мелен кокос, лешник",
+                            "price": "240",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_dulce_de_leche",
+                            "name_en": "Dulce de Leche",
+                            "name_mk": "Дулче де лече",
+                            "description_en": "Pancake, dulce de leche, white cream, banana, Plazma, lemon zest.",
+                            "description_mk": "палачинка, dulce de leche, бел крем, банана, плазма, кора од лимон",
+                            "price": "220",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_honey",
+                            "name_en": "Honey",
+                            "name_mk": "Хани",
+                            "description_en": "Pancake, honey, cinnamon, ground walnuts, orange zest.",
+                            "description_mk": "палачинка, мед, цимет, мелен ореви, кора од портокал",
+                            "price": "180",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_triple_choc",
+                            "name_en": "Triple Choc",
+                            "name_mk": "Трипл Чок",
+                            "description_en": "Pancake, Bliss cream, chocolate, Nutella, walnuts.",
+                            "description_mk": "палачинка, Блисс крем, чанада, нутела, орев",
+                            "price": "280",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_triple_white",
+                            "name_en": "Triple White",
+                            "name_mk": "Трипл Вајт",
+                            "description_en": "Pancake, Rafaello cream, white cream, almond flakes, ground coconut.",
+                            "description_mk": "палачинка, рафаело крем, бел крем, бадем лист, мелен кокос",
+                            "price": "280",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_oreo",
+                            "name_en": "Oreo",
+                            "name_mk": "Орео",
+                            "description_en": "Pancake, white cream, Oreo cream, Oreo biscuit.",
+                            "description_mk": "палачинка, бел крем, орео крем, орео бисквит",
+                            "price": "240",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_snickers",
+                            "name_en": "Snickers",
+                            "name_mk": "Сникерс",
+                            "description_en": "Pancake, vanilla, white cream, dulce de leche, ground peanuts, ground biscuits.",
+                            "description_mk": "палачинка, ванила, бел крем, dulce de leche, мелени кикирики, мелена бисквита",
+                            "price": "280",
+                            "image": "",
+                            "featured": false
+                        },
+                        {
+                            "id": "pancake_white_raspberry",
+                            "name_en": "White Raspberry",
+                            "name_mk": "Бела Малина",
+                            "description_en": "Pancake, white cream, raspberry jam, almond flakes.",
+                            "description_mk": "палачинка, бел крем, џем од малина, лист од бадем",
+                            "price": "240",
+                            "image": "",
+                            "featured": false
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
