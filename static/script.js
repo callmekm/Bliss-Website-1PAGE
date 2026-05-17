@@ -161,44 +161,49 @@ document.querySelectorAll(".delete-featured-item").forEach(button => {
     const navLinks = document.querySelectorAll(".nav-links a:not(.lang-btn)");
 
     function syncNavLinkActiveFromHash() {
-        const hash = window.location.hash || "";
-        navLinks.forEach((l) => {
-            const h = l.getAttribute("href") || "";
-            l.classList.toggle("nav-link-active", hash !== "" && h === hash);
-        });
+        navLinks.forEach((l) => l.classList.remove("nav-link-active"));
     }
 
     // RESET STATE ON LOAD
     if (navbar) navbar.classList.remove("open");
     if (hamburger) hamburger.classList.remove("open");
 
-    // TOGGLE MENU — opening clears section underline so it does not “stick” when reopening
+    // TOGGLE MENU
     if (hamburger && navbar) {
         hamburger.addEventListener("click", function () {
-            const opening = !navbar.classList.contains("open");
             navbar.classList.toggle("open");
             hamburger.classList.toggle("open");
-            if (opening) {
-                navLinks.forEach((l) => l.classList.remove("nav-link-active"));
-            }
         });
     }
 
-    // NAV LINK CLICK: close drawer + mark current section (hash links only)
+    // NAV LINK CLICK: close drawer; underline stays hover-only
     navLinks.forEach((link) => {
-        link.addEventListener("click", function () {
+        link.addEventListener("click", function (e) {
             const href = this.getAttribute("href") || "";
-
-            if (href.startsWith("#")) {
-                navLinks.forEach((l) => l.classList.remove("nav-link-active"));
-                this.classList.add("nav-link-active");
-            } else {
-                navLinks.forEach((l) => l.classList.remove("nav-link-active"));
-            }
+            navLinks.forEach((l) => l.classList.remove("nav-link-active"));
 
             if (navbar && navbar.classList.contains("open")) {
                 navbar.classList.remove("open");
                 hamburger.classList.remove("open");
+            }
+
+            if (href === "#featured") {
+                e.preventDefault();
+
+                const featured = document.querySelector("#featured");
+                if (!featured) return;
+
+                const scrollPadding =
+                    parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 90;
+                const extraDown = 70;
+                const targetTop = featured.getBoundingClientRect().top + window.scrollY - scrollPadding + extraDown;
+
+                window.scrollTo({
+                    top: Math.max(0, targetTop),
+                    behavior: "smooth",
+                });
+
+                history.pushState(null, "", href);
             }
         });
     });
@@ -231,37 +236,12 @@ document.querySelectorAll(".delete-featured-item").forEach(button => {
         });
     });
 
-    /* Visit Us → fit footer main block (logo → Instagram) in the viewport when possible */
+    /* Visit Us → scroll to the bottom of the page */
     function scrollVisitUsFooterIntoView() {
-        const footer = document.querySelector(".site-footer");
-        const topEl = footer && footer.querySelector(".footer-intro");
-        const bottomEl = footer && footer.querySelector(".footer-social");
-        if (!topEl || !bottomEl) return;
-
-        const scrollPadding =
-            parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 90;
-        const bottomGap = 16;
-
-        const topY = topEl.getBoundingClientRect().top + window.scrollY;
-        const bottomY = bottomEl.getBoundingClientRect().bottom + window.scrollY;
-        const blockHeight = bottomY - topY;
-
-        const available = window.innerHeight - scrollPadding - bottomGap;
-
-        let scrollY;
-        if (blockHeight <= available) {
-            scrollY = topY - scrollPadding - (available - blockHeight) / 2;
-        } else {
-            scrollY = topY - scrollPadding;
-        }
-
         const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-        /* ~1mm extra downward nudge (typical CSS px) */
-        const scrollNudgePx = 4;
-        scrollY = Math.max(0, Math.min(scrollY + scrollNudgePx, maxScroll));
 
         window.scrollTo({
-            top: scrollY,
+            top: maxScroll,
             behavior: "smooth",
         });
     }
@@ -278,8 +258,12 @@ document.querySelectorAll(".delete-featured-item").forEach(button => {
 // FEATURED CAROUSEL — fade between slides, 5s autoplay, dot indicators
 const featuredSlides = document.querySelectorAll(".featured-slide");
 const featuredDots = document.querySelectorAll(".featured-dot");
+const featuredSwipeArea = document.querySelector(".featured-slides");
 let currentFeaturedSlide = 0;
 let featuredAutoplayId = null;
+let featuredSwipeStartX = 0;
+let featuredSwipeStartY = 0;
+let featuredSwipePointerId = null;
 
 function showFeaturedSlide(index) {
     if (!featuredSlides.length) return;
@@ -324,3 +308,31 @@ featuredDots.forEach(function (dot) {
         startFeaturedAutoplay();
     });
 });
+
+if (featuredSwipeArea && featuredSlides.length > 1) {
+    featuredSwipeArea.addEventListener("pointerdown", function (e) {
+        featuredSwipeStartX = e.clientX;
+        featuredSwipeStartY = e.clientY;
+        featuredSwipePointerId = e.pointerId;
+        featuredSwipeArea.setPointerCapture(e.pointerId);
+    });
+
+    featuredSwipeArea.addEventListener("pointerup", function (e) {
+        if (featuredSwipePointerId !== e.pointerId) return;
+
+        const deltaX = e.clientX - featuredSwipeStartX;
+        const deltaY = e.clientY - featuredSwipeStartY;
+        const isHorizontalSwipe = Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3;
+
+        featuredSwipePointerId = null;
+
+        if (!isHorizontalSwipe) return;
+
+        showFeaturedSlide(currentFeaturedSlide + (deltaX < 0 ? 1 : -1));
+        startFeaturedAutoplay();
+    });
+
+    featuredSwipeArea.addEventListener("pointercancel", function () {
+        featuredSwipePointerId = null;
+    });
+}

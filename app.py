@@ -82,6 +82,36 @@ def get_db():
     return conn
 
 
+# Client menu category order (EN / MK names unchanged)
+CATEGORY_DISPLAY_ORDER = [
+    "non_alcoholic_drinks",
+    "alcoholic_drinks",
+    "cocktails",
+    "food",
+    "desserts",
+]
+
+
+def ensure_category_sort_column(conn):
+    columns = {
+        row[1] for row in conn.execute("PRAGMA table_info(categories)").fetchall()
+    }
+    if "sort_order" not in columns:
+        conn.execute(
+            "ALTER TABLE categories ADD COLUMN sort_order INTEGER NOT NULL DEFAULT 0"
+        )
+        conn.commit()
+
+
+def apply_category_sort_order(conn):
+    for order, category_id in enumerate(CATEGORY_DISPLAY_ORDER):
+        conn.execute(
+            "UPDATE categories SET sort_order = ? WHERE id = ?",
+            (order, category_id),
+        )
+    conn.commit()
+
+
 def init_db():
     conn = get_db()
 
@@ -130,6 +160,8 @@ def init_db():
     """)
 
     conn.commit()
+    ensure_category_sort_column(conn)
+    apply_category_sort_order(conn)
     conn.close()
 
 
@@ -198,7 +230,7 @@ def import_old_json_if_database_empty():
         with open(OLD_JSON_FILE, "r", encoding="utf-8") as file:
             data = json.load(file)
 
-        for category in data.get("categories", []):
+        for sort_order, category in enumerate(data.get("categories", [])):
             category_id = category.get("id") or generate_id(
                 category.get("name_en", "category")
             )
@@ -208,14 +240,16 @@ def import_old_json_if_database_empty():
                 INSERT OR REPLACE INTO categories (
                     id,
                     name_en,
-                    name_mk
+                    name_mk,
+                    sort_order
                 )
-                VALUES (?, ?, ?)
+                VALUES (?, ?, ?, ?)
                 """,
                 (
                     category_id,
                     category.get("name_en", ""),
                     category.get("name_mk", ""),
+                    sort_order,
                 ),
             )
 
@@ -263,7 +297,9 @@ def load_data():
 
     conn = get_db()
 
-    categories = conn.execute("SELECT * FROM categories ORDER BY name_en COLLATE NOCASE").fetchall()
+    categories = conn.execute(
+        "SELECT * FROM categories ORDER BY sort_order, name_en COLLATE NOCASE"
+    ).fetchall()
 
     data = {"categories": []}
 

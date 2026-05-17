@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bliss Lounge Bar</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/BLISSDragonflyFM.svg') }}" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -272,12 +273,11 @@
                 {% else %}
                 <p>
                     <span class="about-accent">Bliss Lounge Bar</span> е опуштен лаунџ во Струмица каде се среќаваат свежата
-                    храна, внимателно подготвените коктели и доброто друштво. Ни е важно квалитетот на намирниците, услугата и
-                    пријатната атмосфера во која може да се задржите—било за оброк, пијалоци или подолго вечерње излегување.
+                    храна, внимателно подготвените коктели и доброто друштво. На нас ни се важни квалитетот на намирниците, услугата и
+                    пријатната атмосфера — место каде можете да уживате, било за оброк, пијалоци или подолго вечерно излегување.
                 </p>
                 <p>
-                    Од дружење со пријатели до посебни моменти, тимот е тука за да ви помогне да се чувствувате пријатно и да
-                    уживате во посетата.
+                    Нашиот тим е тука за да ви помогне да се чувствувате пријатно и да уживате во посетата — од дружење со пријатели до посебни моменти.
                 </p>
                 {% endif %}
             </div>
@@ -306,11 +306,11 @@
                     <div class="footer-hours-list">
                         <div class="footer-hours-block">
                             <p class="footer-hours-range">Monday–Thursday</p>
-                            <p class="footer-hours-slot">8&nbsp;AM–12&nbsp;AM</p>
+                            <p class="footer-hours-slot">08:00–00:00</p>
                         </div>
                         <div class="footer-hours-block">
                             <p class="footer-hours-range">Friday–Saturday</p>
-                            <p class="footer-hours-slot">8&nbsp;AM–1&nbsp;AM</p>
+                            <p class="footer-hours-slot">08:00–01:00</p>
                         </div>
                         <div class="footer-hours-block">
                             <p class="footer-hours-range">Sunday</p>
@@ -354,6 +354,22 @@
                     <p>Струмица, Македонија</p>
                     <p>Ул. Братство Единство бр.41</p>
                     {% endif %}
+                    <a class="footer-map-btn"
+                        href="https://www.google.com/maps/search/?api=1&query=Bliss%20Lounge%20Bar%20Bratstvo%20Edinstvo%2041%20Strumica%20Macedonia"
+                        target="_blank" rel="noopener noreferrer">
+                        <svg class="footer-map-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
+                        </svg>
+                        <span>
+                            {% if lang == "en" %}
+                            Open in Maps
+                            {% else %}
+                            Отвори на мапа
+                            {% endif %}
+                        </span>
+                    </a>
                 </div>
 
                 <div class="footer-block">
@@ -396,6 +412,12 @@
                 {% else %}
                 <p>© 2026 Bliss Lounge Bar. Сите права се задржани.</p>
                 {% endif %}
+                <a class="footer-powered-by" href="https://estada.dev/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Powered by ESTADA">
+                    <span class="footer-powered-text">Powered by</span>
+                    <span class="footer-estada-icon" aria-hidden="true"></span>
+                    <span class="footer-estada-text" aria-hidden="true"></span>
+                </a>
             </div>
 
         </div>
